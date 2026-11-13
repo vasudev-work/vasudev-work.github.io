@@ -78,12 +78,18 @@ code {
 .menu-icon::before { top: -5px; }
 .menu-icon::after { top: 5px; }
 .nav-menu-panel {
-  position: absolute; right: 0; top: calc(100% + 8px); min-width: 216px;
-  background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
-  box-shadow: var(--shadow); padding: 8px; display: flex; flex-direction: column;
+  position: absolute; right: 0; top: calc(100% + 10px);
+  width: min(420px, calc(100vw - 32px));
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+  box-shadow: var(--shadow); padding: 10px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
 }
-.nav-menu-panel a { padding: 10px 12px; border-radius: 8px; text-decoration: none; font-size: 15px; color: var(--ink-soft); }
-.nav-menu-panel a:hover { background: var(--surface-quiet); color: var(--ink); }
+.nav-menu-panel a {
+  padding: 14px 16px; border-radius: 10px; text-decoration: none;
+  font-size: 16.5px; font-weight: 600; color: var(--ink);
+}
+.nav-menu-panel a:hover { background: var(--surface-quiet); }
+.nav-menu-panel a[aria-current="page"] { background: var(--accent-soft); color: var(--accent); }
 
 /* ---------------------------------------------------------------- buttons */
 .button {
@@ -167,7 +173,19 @@ code {
   padding: 22px; display: flex; flex-direction: column; gap: 12px;
   transition: border-color .16s ease, transform .16s ease, box-shadow .16s ease;
 }
+.app-card { padding: 0; overflow: hidden; gap: 0; }
 .app-card:hover { border-color: var(--accent-bright); transform: translateY(-2px); box-shadow: var(--shadow); }
+.app-card-preview {
+  display: grid; place-items: center; padding: 26px 0;
+  background: var(--accent-soft); border-bottom: 1px solid var(--line);
+}
+.app-card-preview img {
+  width: 76px; height: 76px; border-radius: 19px;
+  box-shadow: 0 10px 24px rgba(20, 22, 43, .16);
+  transition: transform .18s ease;
+}
+.app-card:hover .app-card-preview img { transform: translateY(-2px) scale(1.03); }
+.app-card-body { display: flex; flex-direction: column; gap: 12px; padding: 18px 20px 20px; flex: 1; }
 .app-card-header { display: flex; align-items: flex-start; gap: 14px; }
 .app-icon { width: 52px; height: 52px; border-radius: 13px; flex: none; }
 .app-card-title-block { min-width: 0; }
@@ -183,7 +201,7 @@ code {
 .status-badge.planned { background: var(--blue-soft); color: var(--blue); }
 .app-card p { font-size: 14.6px; color: var(--ink-soft); margin: 0; flex: 1; }
 .app-card-actions { display: flex; gap: 10px; align-items: center; margin-top: 2px; }
-.app-card-actions .button { padding: 9px 15px; font-size: 14px; }
+.app-card-actions .button { width: 100%; padding: 11px 15px; font-size: 14.5px; margin-top: 2px; }
 .app-card-note { font-size: 13px; color: var(--muted); margin: 0; }
 
 /* ---------------------------------------------------------------- panels */
@@ -328,6 +346,8 @@ td.yes { color: var(--green); }
 
 @media (max-width: 640px) {
   body { font-size: 16px; }
+  .chip-link { font-size: 12.5px; padding: 6px 11px; }
+  .actions { gap: 8px; }
   .header-inner { height: 62px; }
   .brand small { display: none; }
   .hero { padding: 44px 0 40px; }
