@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apps — Nijatva</title>
+<meta name="description" content="All 24 Nijatva Android apps by phase, with honest release status: two have code today, twenty-two are planned.">
+<meta name="theme-color" content="#1b1f45" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0c0e1c" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+<script>
+/* The only script on this site. It remembers your theme and accent in this
+   browser and sets two attributes on <html>. No network requests, no cookies. */
+(function () {
+  var d = document.documentElement;
+  var mq = window.matchMedia("(prefers-color-scheme: dark)");
+  function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function write(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function sync() {
+    var t = d.getAttribute("data-theme") || "system";
+    d.setAttribute("data-scheme", t === "system" ? (mq.matches ? "dark" : "light") : t);
+  }
+  var theme = read("nj-theme"), accent = read("nj-accent");
+  if (theme) d.setAttribute("data-theme", theme);
+  if (accent) d.setAttribute("data-accent", accent);
+  sync();
+  if (mq.addEventListener) mq.addEventListener("change", sync);
+  document.addEventListener("change", function (e) {
+    var el = e.target;
+    if (el.name === "theme") { d.setAttribute("data-theme", el.value); write("nj-theme", el.value); sync(); }
+    if (el.name === "accent") { d.setAttribute("data-accent", el.value); write("nj-accent", el.value); }
+  });
+  document.addEventListener("DOMContentLoaded", function () {
+    var t = d.getAttribute("data-theme") || "system";
+    var a = d.getAttribute("data-accent") || "saffron";
+    var rt = document.querySelector('input[name="theme"][value="' + t + '"]');
+    var ra = document.querySelector('input[name="accent"][value="' + a + '"]');
+    if (rt) rt.checked = true;
+    if (ra) ra.checked = true;
+  });
+})();
+</script>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="canonical" href="https://vasudev-work.github.io/apps.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nijatva">
+<meta property="og:locale" content="en_IN">
+<meta property="og:title" content="Apps — Nijatva">
+<meta property="og:description" content="All 24 Nijatva Android apps by phase, with honest release status: two have code today, twenty-two are planned.">
+<meta property="og:url" content="https://vasudev-work.github.io/apps.html">
+<meta property="og:image" content="https://vasudev-work.github.io/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://vasudev-work.github.io/og.png">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html" aria-label="Nijatva home">
+      <img src="assets/logo.svg" alt="" width="34" height="34">
+      <span>Nijatva</span><small>by DEVIRA</small>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="apps.html" aria-current="page">Apps</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="index.html#principles">Principles</a>
+      <a href="developer.html">Developer</a>
+      <a href="https://github.com/vasudev-work">GitHub</a>
+    </nav>
+
+    <details class="appearance">
+      <summary aria-label="Appearance settings">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 3.5v2.2M12 18.3v2.2M3.5 12h2.2M18.3 12h2.2M6 6l1.6 1.6M16.4 16.4L18 18M18 6l-1.6 1.6M7.6 16.4L6 18"/></svg>
+        <span>Appearance</span>
+      </summary>
+      <div class="appearance-panel">
+        <p class="eyebrow">Appearance</p>
+        <fieldset>
+          <legend>Theme</legend>
+          <div class="pills">
+            <label class="pill"><input type="radio" name="theme" value="system"><span>System</span></label>
+            <label class="pill"><input type="radio" name="theme" value="dark"><span>Dark</span></label>
+            <label class="pill"><input type="radio" name="theme" value="light"><span>Light</span></label>
+            <label class="pill"><input type="radio" name="theme" value="black"><span>Black</span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Accent colour</legend>
+          <div class="pills">
+            <label class="pill" data-swatch="green"><input type="radio" name="accent" value="green"><span>Green</span></label>
+            <label class="pill" data-swatch="saffron"><input type="radio" name="accent" value="saffron"><span>Saffron</span></label>
+            <label class="pill" data-swatch="indigo"><input type="radio" name="accent" value="indigo"><span>Indigo</span></label>
+          </div>
+        </fieldset>
+        <p class="appearance-note">Saved in this browser only. Nothing about your choice leaves this device.</p>
+      </div>
+    </details>
+    <details class="nav-menu">
+      <summary><span class="menu-icon" aria-hidden="true"></span><span>Menu</span></summary>
+      <nav class="nav-menu-panel" aria-label="Mobile">
+      <a href="apps.html" aria-current="page">Apps</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="index.html#principles">Principles</a>
+      <a href="developer.html">Developer</a>
+      <a href="https://github.com/vasudev-work">GitHub</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="section" style="border-bottom:1px solid var(--line)">
+    <div class="container">
+      <div class="app-hero-grid" style="align-items:start">
+        <div>
+          <p class="eyebrow">Apps</p>
+          <h1 class="page-title">The Nijatva suite</h1>
+          <p class="lead">Twenty-four Android apps for photos, files, calls, messages, music, notes, documents, the keyboard and the home screen. Two have code today; the rest are planned, and each card says which.</p>
+          <div class="actions" style="margin-top:22px">
+          <a class="chip-link" href="#phase-1">Phase 1 &middot; Small apps</a>
+          <a class="chip-link" href="#phase-2">Phase 2 &middot; Media and utility</a>
+          <a class="chip-link" href="#phase-3">Phase 3 &middot; Phone roles</a>
+          <a class="chip-link" href="#phase-4">Phase 4 &middot; Flagship work</a>
+          </div>
+        </div>
+        <aside class="panel status-key" aria-labelledby="status-key-title">
+          <h2 id="status-key-title">Release status</h2>
+          <dl>
+            <div>
+              <dt><span class="status-badge shipped">Shipped</span></dt>
+              <dd>Public releases you can download and install.</dd>
+            </div>
+            <div>
+              <dt><span class="status-badge progress">In progress</span></dt>
+              <dd>Public code and tags, no release yet.</dd>
+            </div>
+            <div>
+              <dt><span class="status-badge planned">Planned</span></dt>
+              <dd>Specified and scoped. No repository yet.</dd>
+            </div>
+          </dl>
+          <a href="architecture.html#roadmap">Status as of 13 November 2026</a>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="phase-1">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Phase 1</p>
+          <h2 class="section-title">Small apps</h2>
+        </div>
+        <div><p class="lead">Roughly a week each. The apps a blank phone needs first.</p></div>
+      </div>
+      <div class="grid three">
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/calc.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>Calculator</h3>
+            <div class="badge-row">
+              <span class="badge">Small build</span>
+              <span class="status-badge planned">Planned</span>
+            </div>
+          </div>
+        </div>
+        <p>Scientific calculator, history, and an offline unit and currency converter.</p>
+        <div class="app-card-actions">
+          <a class="button primary" href="apps/calc.html">View app</a>
+        </div>
+      </article>
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/clock.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>Clock</h3>
+            <div class="badge-row">
+              <span class="badge">Small build</span>
+              <span class="status-badge planned">Planned</span>
+            </div>
+          </div>
+        </div>
+        <p>Alarm, timer, stopwatch, world clock. No ads, no upsell.</p>
+        <div class="app-card-actions">
+          <a class="button primary" href="apps/clock.html">View app</a>
+        </div>
+      </article>
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/notes.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>Notes</h3>
+            <div class="badge-row">
+              <span class="badge">Small build</span>
+              <span class="status-badge planned">Planned</span>
+            </div>
+          </div>
+        </div>
+        <p>Offline Markdown notes with an optional encrypted vault.</p>
+        <div class="app-card-actions">
+          <a class="button primary" href="apps/notes.html">View app</a>
+        </div>
+      </article>
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/qr.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>QR Scanner</h3>
+            <div class="badge-row">
+              <span class="badge">Small build</span>
+              <span class="status-badge planned">Planned</span>
+            </div>
+          </div>
+        </div>
+        <p>Scan and generate QR codes offline. Nothing leaves the device.</p>
+        <div class="app-card-actions">
+          <a class="button primary" href="apps/qr.html">View app</a>
+        </div>
+      </article>
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/files.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>Files</h3>
+            <div class="badge-row">
+              <span class="badge">Medium build</span>
+              <span class="status-badge planned">Planned</span>
+            </div>
+          </div>
+        </div>
+        <p>SAF-based file manager with a storage analyser. No root, no broad storage permission.</p>
+        <div class="app-card-actions">
+          <a class="button primary" href="apps/files.html">View app</a>
+        </div>
+      </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="phase-2">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Phase 2</p>
+          <h2 class="section-title">Media and utility</h2>
+        </div>
+        <div><p class="lead">Local media, documents and the small tools that should not need an account.</p></div>
+      </div>
+      <div class="grid three">
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/gallery.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>Gallery</h3>
+            <div class="badge-row">
+              <span class="badge">Medium build</span>
+              <span class="status-badge planned">Planned</span>
+            </div>
+          </div>
+        </div>
+        <p>Local-first gallery with albums and EXIF stripping on share.</p>
+        <div class="app-card-actions">
+          <a class="button primary" href="apps/gallery.html">View app</a>
+        </div>
+      </article>
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/music.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>Music</h3>
+            <div class="badge-row">
+              <span class="badge">Medium build</span>
+              <span class="status-badge planned">Planned</span>
+            </div>
+          </div>
+        </div>
+        <p>Offline, folder-based player with an equaliser and sleep timer.</p>
+        <div class="app-card-actions">
+          <a class="button primary" href="apps/music.html">View app</a>
+        </div>
+      </article>
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/recorder.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>Recorder</h3>
+            <div class="badge-row">
+              <span class="badge">Medium build</span>
+              <span class="status-badge planned">Planned</span>
+            </div>
+          </div>
+        </div>
+        <p>Voice recording with optional on-device transcription.</p>
+        <div class="app-card-actions">
+          <a class="button primary" href="apps/recorder.html">View app</a>
+        </div>
+      </article>
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/pdf.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>PDF Viewer</h3>
+            <div class="badge-row">
+              <span class="badge">Medium build</span>
+              <span class="status-badge planned">Planned</span>
+            </div>
+          </div>
+        </div>
+        <p>Open PDF and text documents from storage. Night mode and text reflow.</p>
+        <div class="app-card-actions">
+          <a class="button primary" href="apps/pdf.html">View app</a>
+        </div>
+      </article>
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/deviceinfo.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>Device Info</h3>
+            <div class="badge-row">
+              <span class="badge">Small build</span>
+              <span class="status-badge planned">Planned</span>
+            </div>
+          </div>
+        </div>
+        <p>Battery, storage, RAM, sensors and network speed. Zero tracking.</p>
+        <div class="app-card-actions">
+          <a class="button primary" href="apps/deviceinfo.html">View app</a>
+        </div>
+      </article>
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/weather.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>Weather</h3>
+            <div class="badge-row">
+              <span class="badge">Small build</span>
+              <span class="status-badge planned">Planned</span>
+            </div>
+          </div>
+        </div>
+        <p>Forecast from Open-Meteo. Works properly even if you deny location.</p>
+        <div class="app-card-actions">
+          <a class="button primary" href="apps/weather.html">View app</a>
+        </div>
+      </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="phase-3">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Phase 3</p>
+          <h2 class="section-title">Phone roles</h2>
+        </div>
+        <div><p class="lead">The apps that replace the stock phone, messages and camera.</p></div>
+      </div>
+      <div class="grid three">
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/dialer.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>Dialer</h3>
+            <div class="badge-row">
+              <span class="badge">Large build</span>
+              <span class="status-badge planned">Planned</span>
+            </div>
+          </div>
+        </div>
+        <p>T9 keypad, call log, dual-SIM picker and a spam blocklist.</p>
+        <div class="app-card-actions">
+          <a class="button primary" href="apps/dialer.html">View app</a>
+        </div>
+      </article>
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/contacts.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>Contacts</h3>
+            <div class="badge-row">
+              <span class="badge">Medium build</span>
+              <span class="status-badge planned">Planned</span>
+            </div>
+          </div>
+        </div>
+        <p>Local contacts, vCard import and export, duplicate merge.</p>
+        <div class="app-card-actions">
+          <a class="button primary" href="apps/contacts.html">View app</a>
+        </div>
+      </article>
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/sms.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>SMS</h3>
+            <div class="badge-row">
+              <span class="badge">Large build</span>
+              <span class="status-badge planned">Planned</span>
+            </div>
+          </div>
+        </div>
+        <p>SMS and MMS threads, offline OTP detection, blocklist.</p>
+        <div class="app-card-actions">
+          <a class="button primary" href="apps/sms.html">View app</a>
+        </div>
+      </article>
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/calendar.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>Calendar</h3>
+            <div class="badge-row">
+              <span class="badge">Medium build</span>
+              <span class="status-badge planned">Planned</span>
+            </div>
+          </div>
+        </div>
+        <p>Offline calendar with reminders and ICS import and export.</p>
+        <div class="app-card-actions">
+          <a class="button primary" href="apps/calendar.html">View app</a>
+        </div>
+      </article>
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/camera.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>Camera</h3>
+            <div class="badge-row">
+              <span class="badge">Medium build</span>
+              <span class="status-badge progress">In progress</span>
+            </div>
+          </div>
+        </div>
+        <p>Camera2 with manual controls, RAW, night stacking, exposure fusion and panorama.</p>
+        <p class="app-card-note">Public code and tags up to v0.3.0. No release yet.</p>
+        <div class="app-card-actions">
+          <a class="button primary" href="apps/camera.html">View app</a>
+        </div>
+      </article>
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/expenses.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>Expenses</h3>
+            <div class="badge-row">
+              <span class="badge">Medium build</span>
+              <span class="status-badge planned">Planned</span>
+            </div>
+          </div>
+        </div>
+        <p>Offline expense tracking with CSV export. No bank linking.</p>
+        <div class="app-card-actions">
+          <a class="button primary" href="apps/expenses.html">View app</a>
+        </div>
+      </article>
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/tasks.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>Tasks</h3>
+            <div class="badge-row">
+              <span class="badge">Small build</span>
+              <span class="status-badge planned">Planned</span>
+            </div>
+          </div>
+        </div>
+        <p>Tasks, reminders and recurrence. Local database only.</p>
+        <div class="app-card-actions">
+          <a class="button primary" href="apps/tasks.html">View app</a>
+        </div>
+      </article>
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/rss.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>RSS Reader</h3>
+            <div class="badge-row">
+              <span class="badge">Medium build</span>
+              <span class="status-badge planned">Planned</span>
+            </div>
+          </div>
+        </div>
+        <p>Offline-first feed reader with OPML import. No account.</p>
+        <div class="app-card-actions">
+          <a class="button primary" href="apps/rss.html">View app</a>
+        </div>
+      </article>
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/vault.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>Vault</h3>
+            <div class="badge-row">
+              <span class="badge">Medium build</span>
+              <span class="status-badge planned">Planned</span>
+            </div>
+          </div>
+        </div>
+        <p>Encrypted passwords and offline TOTP with biometric unlock.</p>
+        <div class="app-card-actions">
+          <a class="button primary" href="apps/vault.html">View app</a>
+        </div>
+      </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="phase-4">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Phase 4</p>
+          <h2 class="section-title">Flagship work</h2>
+        </div>
+        <div><p class="lead">The long builds. These set the ceiling for the rest of the suite.</p></div>
+      </div>
+      <div class="grid three">
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/keyboard.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>Keyboard</h3>
+            <div class="badge-row">
+              <span class="badge">Large build</span>
+              <span class="status-badge planned">Planned</span>
+            </div>
+          </div>
+        </div>
+        <p>Indic-first keyboard for a dozen Indian scripts. The manifest has no INTERNET permission at all.</p>
+        <div class="app-card-actions">
+          <a class="button primary" href="apps/keyboard.html">View app</a>
+        </div>
+      </article>
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/launcher.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>Launcher</h3>
+            <div class="badge-row">
+              <span class="badge">Large build</span>
+              <span class="status-badge planned">Planned</span>
+            </div>
+          </div>
+        </div>
+        <p>A minimal home screen. No news feed, no widgets phoning home.</p>
+        <div class="app-card-actions">
+          <a class="button primary" href="apps/launcher.html">View app</a>
+        </div>
+      </article>
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/browser.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>Browser</h3>
+            <div class="badge-row">
+              <span class="badge">Large build</span>
+              <span class="status-badge shipped">Shipped</span>
+            </div>
+          </div>
+        </div>
+        <p>Containers, tracker and ad blocking, reader mode and native text-to-speech, on the system WebView.</p>
+        <p class="app-card-note">v2.0.3, released 7 November 2026. Android APK plus desktop builds.</p>
+        <div class="app-card-actions">
+          <a class="button primary" href="apps/browser.html">View app</a>
+        </div>
+      </article>
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/appmanager.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>App Manager</h3>
+            <div class="badge-row">
+              <span class="badge">Medium build</span>
+              <span class="status-badge planned">Planned</span>
+            </div>
+          </div>
+        </div>
+        <p>Audit the apps on your phone and flag the ones that depend on Google Play Services.</p>
+        <div class="app-card-actions">
+          <a class="button primary" href="apps/appmanager.html">View app</a>
+        </div>
+      </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-band" id="foundation">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Foundation</p>
+          <h2 class="section-title">The shared pieces</h2>
+        </div>
+        <div><p class="lead">Four repositories that every app is built on. All four exist today and contain a README only &mdash; the code is the next step, and it comes before the apps.</p></div>
+      </div>
+      <div class="grid two">
+      <article class="card">
+        <h3><code>nijatva-core</code></h3>
+        <div class="badge-row"><span class="badge">Shared library</span><span class="status-badge planned">README only</span></div>
+        <p>Compose design system, Storage Access Framework helpers, text-to-speech wrapper, encrypted preferences, local backup and restore.</p>
+        <div class="app-card-actions"><a class="button subtle" href="https://github.com/vasudev-work/nijatva-core">Repository</a></div>
+      </article>
+      <article class="card">
+        <h3><code>no-gms-check</code></h3>
+        <div class="badge-row"><span class="badge">Build guard</span><span class="status-badge planned">README only</span></div>
+        <p>A Gradle plugin and CI action that fails the build if a Google Play Services or Firebase artefact slips in.</p>
+        <div class="app-card-actions"><a class="button subtle" href="https://github.com/vasudev-work/no-gms-check">Repository</a></div>
+      </article>
+      <article class="card">
+        <h3><code>nijatva-design</code></h3>
+        <div class="badge-row"><span class="badge">Brand assets</span><span class="status-badge planned">README only</span></div>
+        <p>The icon set, screenshot templates and README template that keep 24 repositories looking like one suite.</p>
+        <div class="app-card-actions"><a class="button subtle" href="https://github.com/vasudev-work/nijatva-design">Repository</a></div>
+      </article>
+      <article class="card">
+        <h3><code>nijatva-suite</code></h3>
+        <div class="badge-row"><span class="badge">Meta repository</span><span class="status-badge planned">README only</span></div>
+        <p>The app index, release downloads and the self-hosted F-Droid style repository.</p>
+        <div class="app-card-actions"><a class="button subtle" href="https://github.com/vasudev-work/nijatva-suite">Repository</a></div>
+      </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img src="assets/logo.svg" alt="" width="32" height="32">
+          <span>Nijatva</span>
+        </div>
+        <p>Small, single-purpose Android apps with no Google Play Services, no accounts, no ads and no analytics. A DEVIRA project, built in India.</p>
+        <a class="dev-card" href="developer.html">
+          <div class="dev-avatar" aria-hidden="true">VD</div>
+          <div>
+            <p class="dev-name">Vasudev Dangaya</p>
+            <p class="dev-role">Independent developer &middot; India</p>
+            <span class="dev-link">Developer profile</span>
+          </div>
+        </a>
+      </div>
+      <div>
+        <h2>Apps</h2>
+        <div class="footer-links">
+          <a href="apps.html">All 24 apps</a>
+          <a href="apps.html#phase-1">Phase 1 &middot; Small apps</a>
+          <a href="apps.html#phase-4">Phase 4 &middot; Flagship</a>
+        </div>
+      </div>
+      <div>
+        <h2>Project</h2>
+        <div class="footer-links">
+          <a href="architecture.html">Architecture</a>
+          <a href="architecture.html#roadmap">Real status</a>
+          <a href="developer.html">Developer</a>
+          <a href="https://github.com/vasudev-work">Source on GitHub</a>
+        </div>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <div class="footer-links">
+          <a href="mailto:Vasudev.work@rediffmail.com">Vasudev.work@rediffmail.com</a>
+          <a href="index.html#why">Why "Nijatva"</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>Status as of 13 November 2026. Nijatva &middot; a DEVIRA project &middot; India</span>
+      <span>No cookies, no analytics, no external fonts, no third-party requests.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

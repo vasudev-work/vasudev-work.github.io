@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96" role="img" aria-label="PDF Viewer">
+  <rect width="96" height="96" rx="24" fill="#262a5c"/>
+  <g fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M36 20h17l13 13v43H36z"/><path d="M53 20v13h13"/><path d="M43 48h16M43 58h16M43 68h10"/>
+  </g>
+</svg>
