@@ -3,342 +3,361 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nijatva — apps that keep everything on your device</title>
-<meta name="description" content="Nijatva is a suite of small, single-purpose Android apps built without Google Play Services, accounts, ads or analytics. A DEVIRA project.">
-<meta name="theme-color" content="#1b1f45">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b1f45'/%3E%3Cpath d='M20 46V18l24 28V18' stroke='%23e8a33d' stroke-width='6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<style>
-  :root {
-    --ink: #16182b;
-    --ink-soft: #4b4f6b;
-    --indigo: #1b1f45;
-    --saffron: #c9761b;
-    --saffron-soft: #fdf3e3;
-    --line: #e6e4dd;
-    --paper: #fbfaf6;
-    --card: #ffffff;
-    --radius: 14px;
-  }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    font-size: 17px;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+<title>Nijatva — 24 Android apps with no Google Play Services</title>
+<meta name="description" content="Nijatva is a suite of 24 small, single-purpose Android apps built without Google Play Services, accounts, ads or analytics. A DEVIRA project, made in India.">
+<meta name="theme-color" content="#1b1f45" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0c0e1c" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 
-  header.site {
-    position: sticky; top: 0; z-index: 20;
-    background: rgba(251,250,246,.88);
-    backdrop-filter: saturate(140%) blur(10px);
-    border-bottom: 1px solid var(--line);
+<script>
+/* The only script on this site. It remembers your theme and accent in this
+   browser and sets two attributes on <html>. No network requests, no cookies. */
+(function () {
+  var d = document.documentElement;
+  var mq = window.matchMedia("(prefers-color-scheme: dark)");
+  function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function write(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function sync() {
+    var t = d.getAttribute("data-theme") || "system";
+    d.setAttribute("data-scheme", t === "system" ? (mq.matches ? "dark" : "light") : t);
   }
-  .bar { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-  .wordmark { display: flex; align-items: baseline; gap: 10px; }
-  .wordmark b { font-size: 19px; letter-spacing: -.02em; }
-  .wordmark span { font-size: 12.5px; color: var(--ink-soft); letter-spacing: .06em; text-transform: uppercase; }
-  nav a {
-    color: var(--ink-soft); text-decoration: none; font-size: 14.5px; margin-left: 22px;
-  }
-  nav a:hover { color: var(--ink); }
-  @media (max-width: 640px) { nav { display: none; } }
-
-  .hero { padding: 84px 0 64px; border-bottom: 1px solid var(--line); }
-  .kicker {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--saffron-soft); color: var(--saffron);
-    border: 1px solid #f0d9b8; border-radius: 999px;
-    padding: 5px 13px; font-size: 13px; font-weight: 600; letter-spacing: .01em;
-  }
-  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--saffron); }
-  h1 {
-    font-size: clamp(38px, 6.2vw, 64px);
-    line-height: 1.04; letter-spacing: -.035em;
-    margin: 22px 0 0; font-weight: 700; max-width: 15ch;
-  }
-  h1 em { font-style: normal; color: var(--saffron); }
-  .lede { font-size: clamp(17px, 2.1vw, 20px); color: var(--ink-soft); max-width: 60ch; margin: 20px 0 0; }
-  .chips { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 28px; }
-  .chip {
-    font-size: 13px; font-weight: 600; color: var(--indigo);
-    background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 6px 13px;
-  }
-
-  section { padding: 66px 0; border-bottom: 1px solid var(--line); }
-  .sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 30px; }
-  .sec-head h2 { font-size: 26px; letter-spacing: -.02em; margin: 0; }
-  .sec-head span { font-size: 14px; color: var(--ink-soft); }
-
-  .principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; }
-  .principle { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
-  .principle h3 { margin: 0 0 8px; font-size: 16.5px; letter-spacing: -.01em; }
-  .principle p { margin: 0; font-size: 14.8px; color: var(--ink-soft); }
-
-  .phase { padding: 34px 0 0; border: 0; }
-  .phase:first-of-type { padding-top: 0; }
-  .phase-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin: 0 0 16px; padding-top: 26px; border-top: 1px solid var(--line); }
-  .phase:first-of-type .phase-head { border-top: 0; padding-top: 0; }
-  .phase-head h2 { font-size: 19px; margin: 0; letter-spacing: -.01em; }
-  .phase-head span { font-size: 13.5px; color: var(--ink-soft); }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(288px, 1fr)); gap: 16px; }
-  .card {
-    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
-    padding: 20px; display: flex; flex-direction: column; gap: 10px;
-    transition: border-color .15s ease, transform .15s ease;
-  }
-  .card:hover { border-color: #cfcabb; transform: translateY(-2px); }
-  .card-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-  .card h3 { margin: 0; font-size: 16.5px; letter-spacing: -.01em; }
-  .card p { margin: 0; font-size: 14.6px; color: var(--ink-soft); flex: 1; }
-  .card code { font-size: 12.5px; color: #7a7f9c; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
-  .badge {
-    font-size: 11px; font-weight: 700; letter-spacing: .04em;
-    border-radius: 6px; padding: 3px 8px; flex: none;
-  }
-  .b-s { background: #eaf5ee; color: #256b41; }
-  .b-m { background: #eef1fb; color: #33418f; }
-  .b-l { background: #fbecec; color: #93312f; }
-
-  .foundation { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
-  .f-item { border-left: 3px solid var(--saffron); padding: 2px 0 2px 16px; }
-  .f-item h3 { margin: 0; font-size: 15.5px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
-  .f-item span { font-size: 12.5px; text-transform: uppercase; letter-spacing: .07em; color: var(--saffron); }
-  .f-item p { margin: 6px 0 0; font-size: 14.4px; color: var(--ink-soft); }
-
-  .note { background: var(--indigo); color: #e9eaf6; border-radius: 18px; padding: 34px; }
-  .note h2 { margin: 0 0 10px; font-size: 21px; color: #fff; letter-spacing: -.01em; }
-  .note p { margin: 0; color: #b9bcd8; font-size: 15.2px; max-width: 68ch; }
-  .note a { color: #f0b566; }
-
-  footer { padding: 44px 0 60px; }
-  .foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; font-size: 14px; color: var(--ink-soft); }
-  .foot b { color: var(--ink); }
-  .foot a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid var(--line); }
-  .foot a:hover { color: var(--ink); }
-</style>
+  var theme = read("nj-theme"), accent = read("nj-accent");
+  if (theme) d.setAttribute("data-theme", theme);
+  if (accent) d.setAttribute("data-accent", accent);
+  sync();
+  if (mq.addEventListener) mq.addEventListener("change", sync);
+  document.addEventListener("change", function (e) {
+    var el = e.target;
+    if (el.name === "theme") { d.setAttribute("data-theme", el.value); write("nj-theme", el.value); sync(); }
+    if (el.name === "accent") { d.setAttribute("data-accent", el.value); write("nj-accent", el.value); }
+  });
+  document.addEventListener("DOMContentLoaded", function () {
+    var t = d.getAttribute("data-theme") || "system";
+    var a = d.getAttribute("data-accent") || "saffron";
+    var rt = document.querySelector('input[name="theme"][value="' + t + '"]');
+    var ra = document.querySelector('input[name="accent"][value="' + a + '"]');
+    if (rt) rt.checked = true;
+    if (ra) ra.checked = true;
+  });
+})();
+</script>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="canonical" href="https://vasudev-work.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nijatva">
+<meta property="og:locale" content="en_IN">
+<meta property="og:title" content="Nijatva — 24 Android apps with no Google Play Services">
+<meta property="og:description" content="Nijatva is a suite of 24 small, single-purpose Android apps built without Google Play Services, accounts, ads or analytics. A DEVIRA project, made in India.">
+<meta property="og:url" content="https://vasudev-work.github.io/">
+<meta property="og:image" content="https://vasudev-work.github.io/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://vasudev-work.github.io/og.png">
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
-<header class="site">
-  <div class="wrap bar">
-    <div class="wordmark"><b>Nijatva</b><span>by DEVIRA</span></div>
-    <nav>
-      <a href="#principles">Principles</a>
-      <a href="#suite">The suite</a>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html" aria-label="Nijatva home">
+      <img src="assets/logo.svg" alt="" width="34" height="34">
+      <span>Nijatva</span><small>by DEVIRA</small>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="apps.html">Apps</a>
       <a href="architecture.html">Architecture</a>
-      <a href="#foundation">Under the hood</a>
-      <a href="#contact">Contact</a>
+      <a href="index.html#principles">Principles</a>
+      <a href="developer.html">Developer</a>
+      <a href="https://github.com/vasudev-work">GitHub</a>
     </nav>
+
+    <details class="appearance">
+      <summary aria-label="Appearance settings">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 3.5v2.2M12 18.3v2.2M3.5 12h2.2M18.3 12h2.2M6 6l1.6 1.6M16.4 16.4L18 18M18 6l-1.6 1.6M7.6 16.4L6 18"/></svg>
+        <span>Appearance</span>
+      </summary>
+      <div class="appearance-panel">
+        <p class="eyebrow">Appearance</p>
+        <fieldset>
+          <legend>Theme</legend>
+          <div class="pills">
+            <label class="pill"><input type="radio" name="theme" value="system"><span>System</span></label>
+            <label class="pill"><input type="radio" name="theme" value="dark"><span>Dark</span></label>
+            <label class="pill"><input type="radio" name="theme" value="light"><span>Light</span></label>
+            <label class="pill"><input type="radio" name="theme" value="black"><span>Black</span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Accent colour</legend>
+          <div class="pills">
+            <label class="pill" data-swatch="green"><input type="radio" name="accent" value="green"><span>Green</span></label>
+            <label class="pill" data-swatch="saffron"><input type="radio" name="accent" value="saffron"><span>Saffron</span></label>
+            <label class="pill" data-swatch="indigo"><input type="radio" name="accent" value="indigo"><span>Indigo</span></label>
+          </div>
+        </fieldset>
+        <p class="appearance-note">Saved in this browser only. Nothing about your choice leaves this device.</p>
+      </div>
+    </details>
+    <details class="nav-menu">
+      <summary><span class="menu-icon" aria-hidden="true"></span><span>Menu</span></summary>
+      <nav class="nav-menu-panel" aria-label="Mobile">
+      <a href="apps.html">Apps</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="index.html#principles">Principles</a>
+      <a href="developer.html">Developer</a>
+      <a href="https://github.com/vasudev-work">GitHub</a>
+      </nav>
+    </details>
   </div>
 </header>
 
-<main>
+<main id="main">
+
   <section class="hero">
-    <div class="wrap">
-      <span class="kicker"><span class="dot"></span> In development &middot; first apps landing soon</span>
-      <h1>Your phone. <em>Your</em> data.</h1>
-      <p class="lede">Nijatva is a suite of 24 small, single-purpose Android apps. Each one does a job and then gets out of the way. No account, no ads, no tracker, no Google Play Services.</p>
-      <div class="chips">
-        <span class="chip">Android 7+</span>
-        <span class="chip">No Google Play Services</span>
-        <span class="chip">BharOS and de-Googled ROMs</span>
-        <span class="chip">Made in India</span>
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">A DEVIRA project &middot; Made in India</p>
+        <h1 class="hero-title">Nijatva</h1>
+        <p class="lead lede-narrow">Twenty-four small, single-purpose Android apps for the things a phone already does. Each one does a job and then gets out of the way. No account, no ads, no tracker, no Google Play Services.</p>
+        <div class="actions">
+          <a class="button primary" href="apps.html">Explore the 24 apps</a>
+          <a class="button" href="architecture.html">How it is built</a>
+        </div>
+      </div>
+      <div class="icon-wall" aria-label="A sample of the Nijatva app set">
+        <div class="wall-tile"><img src="assets/icons/notes.svg" alt="" width="46" height="46" loading="lazy"><span>Notes</span></div>
+        <div class="wall-tile"><img src="assets/icons/gallery.svg" alt="" width="46" height="46" loading="lazy"><span>Gallery</span></div>
+        <div class="wall-tile"><img src="assets/icons/browser.svg" alt="" width="46" height="46" loading="lazy"><span>Browser</span></div>
+        <div class="wall-tile"><img src="assets/icons/calendar.svg" alt="" width="46" height="46" loading="lazy"><span>Calendar</span></div>
+        <div class="wall-tile"><img src="assets/icons/camera.svg" alt="" width="46" height="46" loading="lazy"><span>Camera</span></div>
+        <div class="wall-tile"><img src="assets/icons/music.svg" alt="" width="46" height="46" loading="lazy"><span>Music</span></div>
+        <div class="wall-tile"><img src="assets/icons/files.svg" alt="" width="46" height="46" loading="lazy"><span>Files</span></div>
+        <div class="wall-tile"><img src="assets/icons/clock.svg" alt="" width="46" height="46" loading="lazy"><span>Clock</span></div>
+        <div class="wall-tile"><img src="assets/icons/keyboard.svg" alt="" width="46" height="46" loading="lazy"><span>Keyboard</span></div>
+      </div>
+      <div class="hero-metrics" aria-label="What every app guarantees">
+        <div class="metric"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.2-2.9 7.6-7 9-4.1-1.4-7-4.8-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg><strong>No Google Play Services</strong><span>Built for AOSP without GMS, so it runs on de-Googled Android and on BharOS.</span></div>
+        <div class="metric"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M5 20a7 7 0 0 1 14 0"/></svg><strong>No accounts</strong><span>There is nothing to sign up for. Everything stays in device storage.</span></div>
+        <div class="metric"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="2.6"/></svg><strong>No ads or analytics</strong><span>No tracking SDK is linked in. Not disabled, not opt-out. Absent.</span></div>
+        <div class="metric"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 21V4"/><path d="M6 4h12l-2.5 4L18 12H6"/></svg><strong>Made in India</strong><span>Indian languages and Indian networks as the first target, not an afterthought.</span></div>
       </div>
     </div>
   </section>
 
-  <section id="principles">
-    <div class="wrap">
-      <div class="sec-head"><h2>Four rules we do not bend</h2><span>Every app, without exception</span></div>
+  <section class="section section-band" id="available">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Available now</p>
+          <h2 class="section-title">Two apps have code</h2>
+        </div>
+        <div>
+          <p class="lead">The Browser ships releases for Android and the desktop. The Camera is being built in the open. Everything else is planned.</p>
+          <a class="section-link" href="apps.html">View the full list</a>
+        </div>
+      </div>
+      <div class="grid three">
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/browser.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>Browser</h3>
+            <div class="badge-row">
+              <span class="badge">Large build</span>
+              <span class="status-badge shipped">Shipped</span>
+            </div>
+          </div>
+        </div>
+        <p>Containers, tracker and ad blocking, reader mode and native text-to-speech, on the system WebView.</p>
+        <p class="app-card-note">v2.0.3, released 7 November 2026. Android APK plus desktop builds.</p>
+        <div class="app-card-actions">
+          <a class="button primary" href="apps/browser.html">View app</a>
+        </div>
+      </article>
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/camera.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>Camera</h3>
+            <div class="badge-row">
+              <span class="badge">Medium build</span>
+              <span class="status-badge progress">In progress</span>
+            </div>
+          </div>
+        </div>
+        <p>Camera2 with manual controls, RAW, night stacking, exposure fusion and panorama.</p>
+        <p class="app-card-note">Public code and tags up to v0.3.0. No release yet.</p>
+        <div class="app-card-actions">
+          <a class="button primary" href="apps/camera.html">View app</a>
+        </div>
+      </article>
+      <article class="card app-card">
+        <div class="app-card-header">
+          <img class="app-icon" src="assets/icons/launcher.svg" alt="" width="52" height="52" loading="lazy">
+          <div class="app-card-title-block">
+            <h3>The other 22</h3>
+            <div class="badge-row"><span class="status-badge planned">Planned</span></div>
+          </div>
+        </div>
+        <p>Every other app in the suite is a plan, not a download. The four foundation repositories exist and are still empty; apps land one at a time.</p>
+        <div class="app-card-actions"><a class="button primary" href="apps.html">See all 24</a></div>
+      </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="suite">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">The suite</p>
+          <h2 class="section-title">24 apps, built in four phases</h2>
+        </div>
+        <div>
+          <p class="lead">Foundation first, then the small apps, then the phone roles, then the flagship builds. Nothing ships until the shared pieces exist.</p>
+          <a class="section-link" href="apps.html">Browse all apps</a>
+        </div>
+      </div>
+      <div class="grid two">
+      <article class="card">
+        <div class="badge-row"><span class="badge">Phase 1</span><span class="badge">5 apps</span></div>
+        <h3>Small apps</h3>
+        <p>Roughly a week each. The apps a blank phone needs first.</p>
+        <p class="app-card-note">Calculator, Clock, Notes, QR Scanner, Files</p>
+        <div class="app-card-actions"><a class="button subtle" href="apps.html#phase-1">Open phase 1</a></div>
+      </article>
+      <article class="card">
+        <div class="badge-row"><span class="badge">Phase 2</span><span class="badge">6 apps</span></div>
+        <h3>Media and utility</h3>
+        <p>Local media, documents and the small tools that should not need an account.</p>
+        <p class="app-card-note">Gallery, Music, Recorder, PDF Viewer, Device Info, Weather</p>
+        <div class="app-card-actions"><a class="button subtle" href="apps.html#phase-2">Open phase 2</a></div>
+      </article>
+      <article class="card">
+        <div class="badge-row"><span class="badge">Phase 3</span><span class="badge">9 apps</span></div>
+        <h3>Phone roles</h3>
+        <p>The apps that replace the stock phone, messages and camera.</p>
+        <p class="app-card-note">Dialer, Contacts, SMS, Calendar, Camera, Expenses, Tasks, RSS Reader, Vault</p>
+        <div class="app-card-actions"><a class="button subtle" href="apps.html#phase-3">Open phase 3</a></div>
+      </article>
+      <article class="card">
+        <div class="badge-row"><span class="badge">Phase 4</span><span class="badge">4 apps</span></div>
+        <h3>Flagship work</h3>
+        <p>The long builds. These set the ceiling for the rest of the suite.</p>
+        <p class="app-card-note">Keyboard, Launcher, Browser, App Manager</p>
+        <div class="app-card-actions"><a class="button subtle" href="apps.html#phase-4">Open phase 4</a></div>
+      </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-band" id="principles">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Principles</p>
+          <h2 class="section-title">Four rules we do not bend</h2>
+        </div>
+        <div><p class="lead">Every app, without exception. If an app cannot meet all four, it does not ship.</p></div>
+      </div>
       <div class="principles">
-        <div class="principle"><h3>No Google Play Services</h3><p>Every app is built for AOSP without GMS, so it runs on de-Googled Android and on BharOS.</p></div>
-        <div class="principle"><h3>No accounts</h3><p>There is nothing to sign up for. Everything stays in your device's own storage.</p></div>
-        <div class="principle"><h3>No ads, no analytics</h3><p>No tracking SDK is linked in. Not disabled, not opt-out. Absent.</p></div>
-        <div class="principle"><h3>Made in India</h3><p>Built in India, with Indian languages and Indian networks as the first target, not an afterthought.</p></div>
+        <div class="principle"><h3>No Google Play Services</h3><p>Built for AOSP without GMS, so it runs on de-Googled Android and on BharOS.</p></div>
+        <div class="principle"><h3>No accounts</h3><p>There is nothing to sign up for. Everything stays in device storage.</p></div>
+        <div class="principle"><h3>No ads or analytics</h3><p>No tracking SDK is linked in. Not disabled, not opt-out. Absent.</p></div>
+        <div class="principle"><h3>Made in India</h3><p>Indian languages and Indian networks as the first target, not an afterthought.</p></div>
       </div>
     </div>
   </section>
 
-  <section id="suite">
-    <div class="wrap">
-      <div class="sec-head"><h2>The suite</h2><span>24 apps, built in four phases</span></div>
-    <section class="phase">
-      <div class="phase-head"><h2>Phase 1</h2><span>Small apps, roughly a week each &middot; 5 apps</span></div>
-      <div class="grid">
-        <article class="card">
-          <div class="card-top"><h3>Calculator + Converter</h3><span class="badge b-s">S</span></div>
-          <p>Scientific calculator, history, and an offline unit and currency converter.</p>
-          <code>nijatva-calc</code>
-        </article>
-        <article class="card">
-          <div class="card-top"><h3>Clock</h3><span class="badge b-s">S</span></div>
-          <p>Alarm, timer, stopwatch, world clock. No ads, no upsell.</p>
-          <code>nijatva-clock</code>
-        </article>
-        <article class="card">
-          <div class="card-top"><h3>Notes</h3><span class="badge b-s">S</span></div>
-          <p>Offline Markdown notes with an optional encrypted vault.</p>
-          <code>nijatva-notes</code>
-        </article>
-        <article class="card">
-          <div class="card-top"><h3>QR Scanner</h3><span class="badge b-s">S</span></div>
-          <p>Scan and generate QR codes offline. Nothing leaves the device.</p>
-          <code>nijatva-qr</code>
-        </article>
-        <article class="card">
-          <div class="card-top"><h3>Files</h3><span class="badge b-m">M</span></div>
-          <p>SAF-based file manager with a storage analyser. No root, no broad storage permission.</p>
-          <code>nijatva-files</code>
-        </article>
-      </div>
-    </section>
-    <section class="phase">
-      <div class="phase-head"><h2>Phase 2</h2><span>Media and utility &middot; 6 apps</span></div>
-      <div class="grid">
-        <article class="card">
-          <div class="card-top"><h3>Gallery</h3><span class="badge b-m">M</span></div>
-          <p>Local-first gallery with albums and EXIF stripping on share.</p>
-          <code>nijatva-gallery</code>
-        </article>
-        <article class="card">
-          <div class="card-top"><h3>Music</h3><span class="badge b-m">M</span></div>
-          <p>Offline, folder-based player with an equaliser and sleep timer.</p>
-          <code>nijatva-music</code>
-        </article>
-        <article class="card">
-          <div class="card-top"><h3>Recorder</h3><span class="badge b-m">M</span></div>
-          <p>Voice recording with optional on-device transcription.</p>
-          <code>nijatva-recorder</code>
-        </article>
-        <article class="card">
-          <div class="card-top"><h3>PDF Viewer</h3><span class="badge b-m">M</span></div>
-          <p>Open PDF and text documents from storage. Night mode and text reflow.</p>
-          <code>nijatva-pdf</code>
-        </article>
-        <article class="card">
-          <div class="card-top"><h3>Device Info</h3><span class="badge b-s">S</span></div>
-          <p>Battery, storage, RAM, sensors and network speed. Zero tracking.</p>
-          <code>nijatva-deviceinfo</code>
-        </article>
-        <article class="card">
-          <div class="card-top"><h3>Weather</h3><span class="badge b-s">S</span></div>
-          <p>Forecast from Open-Meteo. Works properly even if you deny location.</p>
-          <code>nijatva-weather</code>
-        </article>
-      </div>
-    </section>
-    <section class="phase">
-      <div class="phase-head"><h2>Phase 3</h2><span>The apps that make a blank phone usable &middot; 9 apps</span></div>
-      <div class="grid">
-        <article class="card">
-          <div class="card-top"><h3>Dialer</h3><span class="badge b-l">L</span></div>
-          <p>T9 keypad, call log, dual-SIM picker and a spam blocklist.</p>
-          <code>nijatva-dialer</code>
-        </article>
-        <article class="card">
-          <div class="card-top"><h3>Contacts</h3><span class="badge b-m">M</span></div>
-          <p>Local contacts, vCard import and export, duplicate merge.</p>
-          <code>nijatva-contacts</code>
-        </article>
-        <article class="card">
-          <div class="card-top"><h3>SMS</h3><span class="badge b-l">L</span></div>
-          <p>SMS and MMS threads, offline OTP detection, blocklist.</p>
-          <code>nijatva-sms</code>
-        </article>
-        <article class="card">
-          <div class="card-top"><h3>Calendar</h3><span class="badge b-m">M</span></div>
-          <p>Offline calendar with reminders and ICS import and export.</p>
-          <code>nijatva-calendar</code>
-        </article>
-        <article class="card">
-          <div class="card-top"><h3>Camera</h3><span class="badge b-m">M</span></div>
-          <p>CameraX photo and video with a GPS-strip toggle.</p>
-          <code>nijatva-camera</code>
-        </article>
-        <article class="card">
-          <div class="card-top"><h3>Expenses</h3><span class="badge b-m">M</span></div>
-          <p>Offline expense tracking with CSV export. No bank linking.</p>
-          <code>nijatva-expenses</code>
-        </article>
-        <article class="card">
-          <div class="card-top"><h3>Tasks</h3><span class="badge b-s">S</span></div>
-          <p>Tasks, reminders and recurrence. Local database only.</p>
-          <code>nijatva-todo</code>
-        </article>
-        <article class="card">
-          <div class="card-top"><h3>RSS Reader</h3><span class="badge b-m">M</span></div>
-          <p>Offline-first feed reader with OPML import. No account.</p>
-          <code>nijatva-rss</code>
-        </article>
-        <article class="card">
-          <div class="card-top"><h3>Vault</h3><span class="badge b-m">M</span></div>
-          <p>Encrypted passwords and offline TOTP with biometric unlock.</p>
-          <code>nijatva-vault</code>
-        </article>
-      </div>
-    </section>
-    <section class="phase">
-      <div class="phase-head"><h2>Phase 4</h2><span>Flagship work &middot; 4 apps</span></div>
-      <div class="grid">
-        <article class="card">
-          <div class="card-top"><h3>Keyboard</h3><span class="badge b-l">L</span></div>
-          <p>Indic-first keyboard for a dozen Indian scripts. The manifest has no INTERNET permission at all.</p>
-          <code>nijatva-keyboard</code>
-        </article>
-        <article class="card">
-          <div class="card-top"><h3>Launcher</h3><span class="badge b-l">L</span></div>
-          <p>A minimal home screen. No news feed, no widgets phoning home.</p>
-          <code>nijatva-launcher</code>
-        </article>
-        <article class="card">
-          <div class="card-top"><h3>Browser</h3><span class="badge b-l">L</span></div>
-          <p>Containers, tracker blocking, reader mode and native text-to-speech.</p>
-          <code>nijatva-browser</code>
-        </article>
-        <article class="card">
-          <div class="card-top"><h3>App Manager</h3><span class="badge b-m">M</span></div>
-          <p>Audit the apps on your phone and flag the ones that depend on Google Play Services.</p>
-          <code>nijatva-appmanager</code>
-        </article>
-      </div>
-    </section>
+  <section class="section" id="install">
+    <div class="container grid three">
+      <article class="panel">
+        <p class="eyebrow">Install</p>
+        <h2>APK, not a store</h2>
+        <p>Releases are published on GitHub with the APK attached. Desktop builds of the Browser ship from the same pipeline. A self-hosted F-Droid style index comes with the suite repository.</p>
+        <div class="text-link-list"><a href="https://github.com/vasudev-work/nijatva-browser/releases/latest">Latest Browser release</a></div>
+      </article>
+      <article class="panel">
+        <p class="eyebrow">Status</p>
+        <h2>What exists today</h2>
+        <p>Two apps have code, four foundation repositories are created and empty, and twenty-two apps are planned. The roadmap page says so in a table rather than in adjectives.</p>
+        <div class="text-link-list"><a href="architecture.html#roadmap">Real status</a></div>
+      </article>
+      <article class="panel">
+        <p class="eyebrow">Contact</p>
+        <h2>Source and questions</h2>
+        <p>The source is public, including the repositories that are still only a README. Write to us for anything else.</p>
+        <div class="text-link-list">
+          <a href="https://github.com/vasudev-work">GitHub</a>
+          <a href="mailto:Vasudev.work@rediffmail.com">Vasudev.work@rediffmail.com</a>
+        </div>
+      </article>
     </div>
   </section>
 
-  <section id="foundation">
-    <div class="wrap">
-      <div class="sec-head"><h2>Under the hood</h2><span>The shared pieces every app is built on</span></div>
-      <div class="foundation">
-        <div class="f-item"><h3>nijatva-core</h3><span>Shared library</span><p>Compose design system, storage helpers, text-to-speech wrapper, encrypted preferences.</p></div>
-        <div class="f-item"><h3>no-gms-check</h3><span>Build guard</span><p>Fails the build if a Google Play Services or Firebase dependency slips in.</p></div>
-        <div class="f-item"><h3>nijatva-design</h3><span>Brand assets</span><p>Icon set, screenshot templates, README template for every app.</p></div>
-        <div class="f-item"><h3>nijatva-suite</h3><span>Meta repository</span><p>The app index, release downloads and the self-hosted F-Droid style repository.</p></div>
-      </div>
+  <section class="section" id="why" style="border-bottom:0">
+    <div class="container" style="max-width:760px">
+      <p class="eyebrow">The name</p>
+      <h2 class="section-title">Why "Nijatva"?</h2>
+      <p class="lead">In Sanskrit, <em>nijatva</em> means own-ness &mdash; the state of being your own. It is a good word for software that does not ask for your data in exchange for doing its job.</p>
+      <p class="lead">Nijatva is a project of <strong>DEVIRA</strong>, a complete IT company. The Browser ships releases today; the Camera is being built in the open; the rest of the twenty-four are planned, and this site says which is which.</p>
+      <div class="actions"><a class="button primary" href="apps.html">See the apps</a>
+      <a class="button" href="mailto:Vasudev.work@rediffmail.com">Write to us</a></div>
     </div>
   </section>
 
-  <section id="contact" style="border-bottom:0">
-    <div class="wrap">
-      <div class="note">
-        <h2>Why "Nijatva"?</h2>
-        <p>In Sanskrit, <em>nijatva</em> means own-ness &mdash; the state of being your own. It is a good word for software that does not ask for your data in exchange for doing its job. Nijatva is a project of <strong>DEVIRA</strong>, a complete IT company. Apps are being released one at a time; source code follows each release.</p>
-        <p style="margin-top:14px">Write to us at <a href="mailto:Vasudev.work@rediffmail.com">Vasudev.work@rediffmail.com</a>.</p>
-      </div>
-    </div>
-  </section>
 </main>
 
-<footer>
-  <div class="wrap foot">
-    <div><b>Nijatva</b> &middot; a DEVIRA project &middot; India</div>
-    <div>No cookies on this page. No analytics. No fonts loaded from anyone else's server.</div>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img src="assets/logo.svg" alt="" width="32" height="32">
+          <span>Nijatva</span>
+        </div>
+        <p>Small, single-purpose Android apps with no Google Play Services, no accounts, no ads and no analytics. A DEVIRA project, built in India.</p>
+        <a class="dev-card" href="developer.html">
+          <div class="dev-avatar" aria-hidden="true">VD</div>
+          <div>
+            <p class="dev-name">Vasudev Dangaya</p>
+            <p class="dev-role">Independent developer &middot; India</p>
+            <span class="dev-link">Developer profile</span>
+          </div>
+        </a>
+      </div>
+      <div>
+        <h2>Apps</h2>
+        <div class="footer-links">
+          <a href="apps.html">All 24 apps</a>
+          <a href="apps.html#phase-1">Phase 1 &middot; Small apps</a>
+          <a href="apps.html#phase-4">Phase 4 &middot; Flagship</a>
+        </div>
+      </div>
+      <div>
+        <h2>Project</h2>
+        <div class="footer-links">
+          <a href="architecture.html">Architecture</a>
+          <a href="architecture.html#roadmap">Real status</a>
+          <a href="developer.html">Developer</a>
+          <a href="https://github.com/vasudev-work">Source on GitHub</a>
+        </div>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <div class="footer-links">
+          <a href="mailto:Vasudev.work@rediffmail.com">Vasudev.work@rediffmail.com</a>
+          <a href="index.html#why">Why "Nijatva"</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>Status as of 13 November 2026. Nijatva &middot; a DEVIRA project &middot; India</span>
+      <span>No cookies, no analytics, no external fonts, no third-party requests.</span>
+    </div>
   </div>
 </footer>
-
 </body>
 </html>
