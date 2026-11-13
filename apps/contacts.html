@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contacts — Nijatva</title>
+<meta name="description" content="Contacts — Local contacts, vCard import and export, duplicate merge.">
+<meta name="theme-color" content="#1b1f45" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0c0e1c" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+
+<script>
+/* The only script on this site. It remembers your theme and accent in this
+   browser and sets two attributes on <html>. No network requests, no cookies. */
+(function () {
+  var d = document.documentElement;
+  var mq = window.matchMedia("(prefers-color-scheme: dark)");
+  function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function write(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function sync() {
+    var t = d.getAttribute("data-theme") || "system";
+    d.setAttribute("data-scheme", t === "system" ? (mq.matches ? "dark" : "light") : t);
+  }
+  var theme = read("nj-theme"), accent = read("nj-accent");
+  if (theme) d.setAttribute("data-theme", theme);
+  if (accent) d.setAttribute("data-accent", accent);
+  sync();
+  if (mq.addEventListener) mq.addEventListener("change", sync);
+  document.addEventListener("change", function (e) {
+    var el = e.target;
+    if (el.name === "theme") { d.setAttribute("data-theme", el.value); write("nj-theme", el.value); sync(); }
+    if (el.name === "accent") { d.setAttribute("data-accent", el.value); write("nj-accent", el.value); }
+  });
+  document.addEventListener("DOMContentLoaded", function () {
+    var t = d.getAttribute("data-theme") || "system";
+    var a = d.getAttribute("data-accent") || "saffron";
+    var rt = document.querySelector('input[name="theme"][value="' + t + '"]');
+    var ra = document.querySelector('input[name="accent"][value="' + a + '"]');
+    if (rt) rt.checked = true;
+    if (ra) ra.checked = true;
+  });
+})();
+</script>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="canonical" href="https://vasudev-work.github.io/apps/contacts.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nijatva">
+<meta property="og:locale" content="en_IN">
+<meta property="og:title" content="Contacts — Nijatva">
+<meta property="og:description" content="Contacts — Local contacts, vCard import and export, duplicate merge.">
+<meta property="og:url" content="https://vasudev-work.github.io/apps/contacts.html">
+<meta property="og:image" content="https://vasudev-work.github.io/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://vasudev-work.github.io/og.png">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="../index.html" aria-label="Nijatva home">
+      <img src="../assets/logo.svg" alt="" width="34" height="34">
+      <span>Nijatva</span><small>by DEVIRA</small>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../apps.html">Apps</a>
+      <a href="../architecture.html">Architecture</a>
+      <a href="../index.html#principles">Principles</a>
+      <a href="../developer.html">Developer</a>
+      <a href="https://github.com/vasudev-work">GitHub</a>
+    </nav>
+
+    <details class="appearance">
+      <summary aria-label="Appearance settings">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 3.5v2.2M12 18.3v2.2M3.5 12h2.2M18.3 12h2.2M6 6l1.6 1.6M16.4 16.4L18 18M18 6l-1.6 1.6M7.6 16.4L6 18"/></svg>
+        <span>Appearance</span>
+      </summary>
+      <div class="appearance-panel">
+        <p class="eyebrow">Appearance</p>
+        <fieldset>
+          <legend>Theme</legend>
+          <div class="pills">
+            <label class="pill"><input type="radio" name="theme" value="system"><span>System</span></label>
+            <label class="pill"><input type="radio" name="theme" value="dark"><span>Dark</span></label>
+            <label class="pill"><input type="radio" name="theme" value="light"><span>Light</span></label>
+            <label class="pill"><input type="radio" name="theme" value="black"><span>Black</span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Accent colour</legend>
+          <div class="pills">
+            <label class="pill" data-swatch="green"><input type="radio" name="accent" value="green"><span>Green</span></label>
+            <label class="pill" data-swatch="saffron"><input type="radio" name="accent" value="saffron"><span>Saffron</span></label>
+            <label class="pill" data-swatch="indigo"><input type="radio" name="accent" value="indigo"><span>Indigo</span></label>
+          </div>
+        </fieldset>
+        <p class="appearance-note">Saved in this browser only. Nothing about your choice leaves this device.</p>
+      </div>
+    </details>
+    <details class="nav-menu">
+      <summary><span class="menu-icon" aria-hidden="true"></span><span>Menu</span></summary>
+      <nav class="nav-menu-panel" aria-label="Mobile">
+      <a href="../apps.html">Apps</a>
+      <a href="../architecture.html">Architecture</a>
+      <a href="../index.html#principles">Principles</a>
+      <a href="../developer.html">Developer</a>
+      <a href="https://github.com/vasudev-work">GitHub</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<main id="main">
+  <div class="container breadcrumb"><a href="../apps.html">Apps</a> &nbsp;/&nbsp; Contacts</div>
+
+  <section class="app-hero">
+    <div class="container app-hero-grid">
+      <div>
+        <div class="app-hero-head">
+          <img src="../assets/icons/contacts.svg" alt="" width="84" height="84">
+          <div>
+            <h1>Contacts</h1>
+            <div class="badge-row">
+              <span class="status-badge planned">Planned</span>
+              <span class="badge">Medium build</span>
+              <span class="badge">Phase 3</span>
+            </div>
+          </div>
+        </div>
+        <p class="lead">Local contacts, vCard import and export, duplicate merge.</p>
+        <div class="actions">
+          <a class="button" href="../apps.html">All apps</a>
+        </div>
+      </div>
+      <dl class="app-meta">
+        <div><dt>Status</dt><dd>Planned</dd></div>
+        <div><dt>Phase</dt><dd>3 &middot; Phone roles</dd></div>
+        <div><dt>Build size</dt><dd>Medium build</dd></div>
+        <div><dt>Repository</dt><dd>nijatva-contacts <span style="font-weight:400;color:var(--muted)">(planned)</span></dd></div>
+        <div><dt>Store</dt><dd>None &middot; APK only</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section" style="border-bottom:0">
+    <div class="container" style="max-width:760px">
+      <p class="eyebrow">What it does</p>
+      <h2 class="section-title">Planned features</h2>
+      <ul class="feature-list">
+        <li>vCard import and export</li>
+        <li>Duplicate merge</li>
+        <li>Groups and favourites</li>
+        <li>No account, no server-side address book</li>
+      </ul>
+      <p class="lead" style="margin-top:28px;font-size:15.5px">Like every app in the suite: no Google Play Services, no account, no ads, no analytics. Distribution is an APK, never a store.</p>
+    </div>
+  </section>
+
+  <div class="container pager">
+    <a class="prev" href="dialer.html"><span>Previous</span><strong>Dialer</strong></a>
+    <a class="next" href="sms.html"><span>Next</span><strong>SMS</strong></a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img src="../assets/logo.svg" alt="" width="32" height="32">
+          <span>Nijatva</span>
+        </div>
+        <p>Small, single-purpose Android apps with no Google Play Services, no accounts, no ads and no analytics. A DEVIRA project, built in India.</p>
+        <a class="dev-card" href="../developer.html">
+          <div class="dev-avatar" aria-hidden="true">VD</div>
+          <div>
+            <p class="dev-name">Vasudev Dangaya</p>
+            <p class="dev-role">Independent developer &middot; India</p>
+            <span class="dev-link">Developer profile</span>
+          </div>
+        </a>
+      </div>
+      <div>
+        <h2>Apps</h2>
+        <div class="footer-links">
+          <a href="../apps.html">All 24 apps</a>
+          <a href="../apps.html#phase-1">Phase 1 &middot; Small apps</a>
+          <a href="../apps.html#phase-4">Phase 4 &middot; Flagship</a>
+        </div>
+      </div>
+      <div>
+        <h2>Project</h2>
+        <div class="footer-links">
+          <a href="../architecture.html">Architecture</a>
+          <a href="../architecture.html#roadmap">Real status</a>
+          <a href="../developer.html">Developer</a>
+          <a href="https://github.com/vasudev-work">Source on GitHub</a>
+        </div>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <div class="footer-links">
+          <a href="mailto:Vasudev.work@rediffmail.com">Vasudev.work@rediffmail.com</a>
+          <a href="../index.html#why">Why "Nijatva"</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>Status as of 13 November 2026. Nijatva &middot; a DEVIRA project &middot; India</span>
+      <span>No cookies, no analytics, no external fonts, no third-party requests.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
