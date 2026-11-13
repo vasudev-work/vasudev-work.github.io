@@ -5,7 +5,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from apps_data import (APPS, FOUNDATION, PHASES, STATUS_LABEL, STATUS_CLASS, SIZE_LABEL,
                        GH, SITE, EMAIL, UPDATED)
 
-ASSET_V = "5"  # bump to force browsers past a cached stylesheet
+ASSET_V = "6"  # bump to force browsers past a cached stylesheet
 ROOT = pathlib.Path(__file__).parent.parent
 E = html.escape
 
@@ -202,19 +202,23 @@ def app_card(app, root="", media_note=False):
     if app["status"] != "planned" and app.get("note"):
         note = f'\n        <p class="app-card-note">{E(app["note"])}</p>'
     return f"""      <article class="card app-card">
-        <div class="app-card-header">
-          <img class="app-icon" src="{root}assets/icons/{app['slug']}.svg" alt="" width="52" height="52" loading="lazy">
-          <div class="app-card-title-block">
-            <h3>{E(app["name"])}</h3>
-            <div class="badge-row">
-              <span class="badge">{SIZE_LABEL[app["size"]]}</span>
-              <span class="status-badge {cls}">{status}</span>
+        <div class="app-card-preview">
+          <img src="{root}assets/icons/{app['slug']}.svg" alt="" width="76" height="76" loading="lazy">
+        </div>
+        <div class="app-card-body">
+          <div class="app-card-header">
+            <div class="app-card-title-block">
+              <h3>{E(app["name"])}</h3>
+              <div class="badge-row">
+                <span class="badge">{SIZE_LABEL[app["size"]]}</span>
+                <span class="status-badge {cls}">{status}</span>
+              </div>
             </div>
           </div>
-        </div>
-        <p>{E(app["summary"])}</p>{note}
-        <div class="app-card-actions">
-          <a class="button primary" href="{root}apps/{app['slug']}.html">View app</a>
+          <p>{E(app["summary"])}</p>{note}
+          <div class="app-card-actions">
+            <a class="button primary" href="{root}apps/{app['slug']}.html">View app</a>
+          </div>
         </div>
       </article>"""
 
@@ -247,15 +251,19 @@ def build_index():
 
     featured = "\n".join(app_card(by[s]) for s in ("browser", "camera"))
     other22 = """      <article class="card app-card">
-        <div class="app-card-header">
-          <img class="app-icon" src="assets/icons/launcher.svg" alt="" width="52" height="52" loading="lazy">
-          <div class="app-card-title-block">
-            <h3>The other 22</h3>
-            <div class="badge-row"><span class="status-badge planned">Planned</span></div>
-          </div>
+        <div class="app-card-preview">
+          <img src="assets/icons/launcher.svg" alt="" width="76" height="76" loading="lazy">
         </div>
-        <p>Every other app in the suite is a plan, not a download. The four foundation repositories exist and are still empty; apps land one at a time.</p>
-        <div class="app-card-actions"><a class="button primary" href="apps.html">See all 24</a></div>
+        <div class="app-card-body">
+          <div class="app-card-header">
+            <div class="app-card-title-block">
+              <h3>The other 22</h3>
+              <div class="badge-row"><span class="status-badge planned">Planned</span></div>
+            </div>
+          </div>
+          <p>Every other app in the suite is a plan, not a download. The four foundation repositories exist and are still empty; apps land one at a time.</p>
+          <div class="app-card-actions"><a class="button primary" href="apps.html">See all 24</a></div>
+        </div>
       </article>"""
 
     phases = "\n".join(
