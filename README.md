@@ -133,6 +133,11 @@ afford.
 
 - No external fonts, scripts, analytics, cookies or CDNs. Icons, CSS and the
   social card are served from this repository.
+- The accent drives primary buttons, links, eyebrows, badges and the selected
+  pill, so switching it visibly changes the page.
+- When `assets/site.css` or `tokens.css` changes, bump `ASSET_V` in
+  `_build/build.py` and rebuild. The stylesheets are linked with `?v=N` so a
+  cached copy cannot keep showing the old colours.
 - One script, inline, for the theme choice only. The mobile menu and the
   Appearance panel are `<details>` elements, so navigation works with scripting
   off.

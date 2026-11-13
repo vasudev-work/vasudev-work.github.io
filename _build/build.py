@@ -5,6 +5,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from apps_data import (APPS, FOUNDATION, PHASES, STATUS_LABEL, STATUS_CLASS, SIZE_LABEL,
                        GH, SITE, EMAIL, UPDATED)
 
+ASSET_V = "5"  # bump to force browsers past a cached stylesheet
 ROOT = pathlib.Path(__file__).parent.parent
 E = html.escape
 
@@ -95,8 +96,8 @@ def head(title, desc, canonical, root="", image=True, extra=""):
 <meta name="theme-color" content="#1b1f45" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0c0e1c" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="{root}assets/favicon.svg" type="image/svg+xml">
-{THEME_SCRIPT}<link rel="stylesheet" href="{root}assets/tokens.css">
-<link rel="stylesheet" href="{root}assets/site.css">
+{THEME_SCRIPT}<link rel="stylesheet" href="{root}assets/tokens.css?v={ASSET_V}">
+<link rel="stylesheet" href="{root}assets/site.css?v={ASSET_V}">
 <link rel="canonical" href="{canonical}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Nijatva">
