@@ -1,57 +1,76 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-scheme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Nijatva has moved to nijatva.github.io</title>
-<link rel="canonical" href="https://nijatva.github.io/">
-<meta name="robots" content="noindex, follow">
-<style>
-  :root{--bg:#0b0b0d;--fg:#f4f4f5;--mut:#a1a1aa;--accent:#f59e0b;--line:#2a2a31}
-  @media (prefers-color-scheme:light){:root{--bg:#fbfbfc;--fg:#18181b;--mut:#5f5f6a;--accent:#b45309;--line:#e4e4ea}}
-  *{box-sizing:border-box}
-  body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;
-       background:var(--bg);color:var(--fg);
-       font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif}
-  main{max-width:34rem}
-  .mark{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;
-        background:linear-gradient(140deg,var(--accent),#7a4405);color:#fff;font-weight:800;font-size:20px}
-  h1{font-size:24px;line-height:1.25;letter-spacing:-.4px;margin:20px 0 10px}
-  p{color:var(--mut);margin:0 0 14px;word-break:break-word}
-  a{color:var(--accent)}
-  .go{display:inline-block;margin-top:8px;background:var(--accent);color:#1a1204;
-      text-decoration:none;font-weight:700;border-radius:999px;padding:12px 22px}
-  .addr{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;
-        background:var(--line);border-radius:8px;padding:2px 7px;color:var(--fg)}
-</style>
-</head>
-<body>
-<main>
-  <div class="mark" aria-hidden="true">N</div>
-  <h1>This page is not here any more</h1>
-  <p>The old site was at this address, and this particular page does not exist on
-     the new one. Everything lives at <span class="addr">nijatva.github.io</span>.</p>
-  <p id="wanted"></p>
-  <a class="go" id="go" href="https://nijatva.github.io/">Go to nijatva.github.io</a>
-</main>
+<title>Nijatva</title>
+<meta name="theme-color" content="#0c0e1c">
+<link rel="icon" href="https://nijatva.github.io/assets/favicon.svg" type="image/svg+xml">
+
+<!-- Reached when someone follows an old deep link. The path is carried across to
+     the new host, because an old address such as /apps.html very likely still
+     exists there under the same name. Redirect first, explain afterwards. -->
 <script>
-  // Keep the path: an old deep link such as /apps.html has a good chance of
-  // existing on the new site under the same name, so send the visitor there
-  // rather than to the front page.
   (function () {
+    var path = location.pathname.replace(/^\/+/, '');
+    var to = 'https://nijatva.github.io/' + path + (location.search || '') + (location.hash || '');
+    try { location.replace(to); } catch (e) { }
+    // the label is filled in later: this runs in the head, before the body exists
     try {
-      var path = location.pathname.replace(/^\/+/, '');
-      var target = 'https://nijatva.github.io/' + path + (location.search || '') + (location.hash || '');
       if (path) {
-        document.getElementById('wanted').innerHTML =
-          'Looking for <span class="addr">' + path.replace(/[<>&"]/g, '') + '</span>?';
-        document.getElementById('go').href = target;
-        location.replace(target);
-      } else {
-        location.replace('https://nijatva.github.io/');
+        document.addEventListener('DOMContentLoaded', function () {
+          var el = document.getElementById('wanted');
+          if (el) el.textContent = '/' + path;
+        });
       }
     } catch (e) { }
   })();
 </script>
+<link rel="canonical" href="https://nijatva.github.io/">
+<meta name="robots" content="noindex, follow">
+
+<style>
+  :root{
+    --bg:#0c0e1c; --panel:#151832; --line:#272c4d; --fg:#eceefb; --mut:#9aa1c4;
+    --accent:#f0b566; --accent-ink:#20160a; --radius:18px;
+  }
+  @media (prefers-color-scheme: light){
+    :root{--bg:#f7f7fb; --panel:#fff; --line:#e3e4ef; --fg:#14172b; --mut:#5b6180;
+          --accent:#c9761b; --accent-ink:#fff;}
+  }
+  *{box-sizing:border-box}
+  html{background:var(--bg)}
+  body{margin:0;background:var(--bg);color:var(--fg);
+       font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif}
+  .wrap{max-width:34rem;margin:0 auto;padding:0 20px 56px}
+  header{display:flex;align-items:center;gap:10px;padding:18px 0 34px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg);
+         font-weight:700;font-size:18px}
+  .brand img{width:34px;height:34px;display:block}
+  .eyebrow{font-size:11.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--accent);
+           font-weight:700;margin:0 0 12px}
+  h1{font-size:clamp(26px,5.5vw,34px);line-height:1.15;letter-spacing:-.7px;margin:0 0 14px}
+  p{color:var(--mut);margin:0 0 14px}
+  .addr{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;color:var(--fg)}
+  .btn{display:inline-flex;align-items:center;border-radius:999px;padding:12px 22px;margin-top:10px;
+       background:var(--accent);color:var(--accent-ink);text-decoration:none;font-weight:700;font-size:15px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="brand" href="https://nijatva.github.io/">
+      <img src="https://nijatva.github.io/assets/logo.svg" alt="">
+      <span>Nijatva</span>
+    </a>
+  </header>
+
+  <p class="eyebrow">Old address</p>
+  <h1>This page is not here any more</h1>
+  <p>The site moved to <span class="addr">nijatva.github.io</span>. You are being taken to
+     the same page there.</p>
+  <p>Looking for <span class="addr" id="wanted">that page</span>?</p>
+  <a class="btn" href="https://nijatva.github.io/">Open nijatva.github.io</a>
+</div>
 </body>
 </html>

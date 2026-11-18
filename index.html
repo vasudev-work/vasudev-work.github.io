@@ -1,56 +1,107 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-scheme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Nijatva has moved to nijatva.github.io</title>
-<meta name="description" content="This address is an old one. Nijatva now lives at nijatva.github.io.">
+<title>Nijatva</title>
+<meta name="description" content="Nijatva is a suite of small, single-purpose Android apps built without Google Play Services, accounts, ads or analytics. Made in India.">
+<meta name="theme-color" content="#0c0e1c">
+<link rel="icon" href="https://nijatva.github.io/assets/favicon.svg" type="image/svg+xml">
 
-<!-- The site moved from this user address to the organisation address. This
-     page exists for one reason: the old address is still in links, bookmarks
-     and search results, and it should hand those visitors to the new site
-     instead of a dead end.
-
-     canonical says which address is the real one. noindex says this page
-     itself should not sit in a search result; follow says the crawler should
-     still walk the links on it. Together they move a visitor and retire a
-     stale listing. -->
+<!-- This address is the old one. The redirect runs here, in the head, before a
+     single element of this page is laid out - so what a visitor sees is the
+     real site, not a notice about it. The markup below only exists for the
+     case where scripting and meta refresh are both off; it is built to look
+     like the site rather than like an error page. -->
+<script>
+  (function () {
+    var to = 'https://nijatva.github.io/' +
+             location.pathname.replace(/^\/+/, '') + (location.search || '') + (location.hash || '');
+    try { location.replace(to); } catch (e) { }
+    // if we are still here a moment later, the redirect was blocked
+    setTimeout(function () { document.documentElement.setAttribute('data-stuck', '1'); }, 900);
+  })();
+</script>
+<meta http-equiv="refresh" content="0; url=https://nijatva.github.io/">
 <link rel="canonical" href="https://nijatva.github.io/">
 <meta name="robots" content="noindex, follow">
-<meta http-equiv="refresh" content="0; url=https://nijatva.github.io/">
+
 <style>
-  :root{--bg:#0b0b0d;--fg:#f4f4f5;--mut:#a1a1aa;--accent:#f59e0b;--line:#2a2a31}
-  @media (prefers-color-scheme:light){:root{--bg:#fbfbfc;--fg:#18181b;--mut:#5f5f6a;--accent:#b45309;--line:#e4e4ea}}
+  :root{
+    --bg:#0c0e1c; --panel:#151832; --line:#272c4d; --fg:#eceefb; --mut:#9aa1c4;
+    --accent:#f0b566; --accent-ink:#20160a; --radius:18px;
+  }
+  @media (prefers-color-scheme: light){
+    :root{--bg:#f7f7fb; --panel:#fff; --line:#e3e4ef; --fg:#14172b; --mut:#5b6180;
+          --accent:#c9761b; --accent-ink:#fff;}
+  }
   *{box-sizing:border-box}
-  body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;
-       background:var(--bg);color:var(--fg);
-       font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif}
-  main{max-width:34rem}
-  .mark{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;
-        background:linear-gradient(140deg,var(--accent),#7a4405);color:#fff;font-weight:800;font-size:20px}
-  h1{font-size:24px;line-height:1.25;letter-spacing:-.4px;margin:20px 0 10px}
-  p{color:var(--mut);margin:0 0 14px}
-  a{color:var(--accent)}
-  .go{display:inline-block;margin-top:8px;background:var(--accent);color:#1a1204;
-      text-decoration:none;font-weight:700;border-radius:999px;padding:12px 22px}
-  .addr{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;
-        background:var(--line);border-radius:8px;padding:2px 7px;color:var(--fg)}
+  html{background:var(--bg)}
+  body{margin:0;background:var(--bg);color:var(--fg);
+       font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif;
+       -webkit-text-size-adjust:100%}
+  .wrap{max-width:56rem;margin:0 auto;padding:0 20px 56px}
+  header{display:flex;align-items:center;gap:10px;padding:18px 0 34px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg);
+         font-weight:700;font-size:18px;letter-spacing:-.2px}
+  .brand img{width:34px;height:34px;display:block}
+  nav{margin-left:auto;display:flex;gap:18px;font-size:14px;flex-wrap:wrap}
+  nav a{color:var(--mut);text-decoration:none}
+  nav a:hover{color:var(--fg)}
+  .eyebrow{font-size:11.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--accent);
+           font-weight:700;margin:0 0 12px}
+  h1{font-size:clamp(28px,6vw,42px);line-height:1.12;letter-spacing:-1px;margin:0 0 14px;max-width:22ch}
+  .lead{color:var(--mut);font-size:17px;margin:0 0 26px;max-width:46ch}
+  .cta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px}
+  .btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:12px 22px;
+       font-size:15px;font-weight:650;text-decoration:none;border:1px solid transparent}
+  .btn.primary{background:var(--accent);color:var(--accent-ink)}
+  .btn.ghost{background:transparent;color:var(--fg);border-color:var(--line)}
+  .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+  .card b{display:block;font-size:14.5px;margin-bottom:4px}
+  .card span{color:var(--mut);font-size:13px;line-height:1.5}
+  .note{margin-top:28px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);
+        background:var(--panel);color:var(--mut);font-size:13px}
+  .note b{color:var(--fg)}
+  .addr{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px}
 </style>
 </head>
 <body>
-<main>
-  <div class="mark" aria-hidden="true">N</div>
-  <h1>Nijatva has moved</h1>
-  <p>This address is the old one. The site lives at
-     <span class="addr">nijatva.github.io</span> now, and you should be taken
-     there automatically.</p>
-  <p>If nothing happens, the link below works.</p>
-  <a class="go" href="https://nijatva.github.io/">Go to nijatva.github.io</a>
-</main>
-<script>
-  // meta refresh covers the no-JS case; this covers a browser that ignored it
-  // or a back-navigation that restored the page from cache.
-  try { location.replace('https://nijatva.github.io/' + (location.hash || '')); } catch (e) { }
-</script>
+<div class="wrap">
+  <header>
+    <a class="brand" href="https://nijatva.github.io/">
+      <img src="https://nijatva.github.io/assets/logo.svg" alt="">
+      <span>Nijatva</span>
+    </a>
+    <nav>
+      <a href="https://nijatva.github.io/apps.html">Apps</a>
+      <a href="https://nijatva.github.io/architecture.html">Architecture</a>
+      <a href="https://nijatva.github.io/developer.html">Developer</a>
+      <a href="https://github.com/nijatva">GitHub</a>
+    </nav>
+  </header>
+
+  <p class="eyebrow">This address has moved</p>
+  <h1>Twenty-four small apps that keep everything on your device</h1>
+  <p class="lead">Nijatva is a suite of single-purpose Android apps built without Google Play
+    Services, accounts, ads or analytics. Made in India.</p>
+
+  <div class="cta">
+    <a class="btn primary" href="https://nijatva.github.io/">Open nijatva.github.io</a>
+    <a class="btn ghost" href="https://nijatva.github.io/apps.html">See the 24 apps</a>
+  </div>
+
+  <div class="grid">
+    <div class="card"><b>No Google Play Services</b><span>Built for AOSP without GMS, so it runs on de-Googled Android and on BharOS.</span></div>
+    <div class="card"><b>No accounts</b><span>There is nothing to sign up for. Everything stays in device storage.</span></div>
+    <div class="card"><b>No ads or analytics</b><span>No tracking SDK is linked in. Not disabled, not opt-out. Absent.</span></div>
+    <div class="card"><b>Made in India</b><span>Indian languages and Indian networks as the first target.</span></div>
+  </div>
+
+  <p class="note">You came in on the old address, <span class="addr">vasudev-work.github.io</span>.
+    The site lives at <b>nijatva.github.io</b> now and this page is meant to hand you over
+    automatically. If it did not, the link above goes there.</p>
+</div>
 </body>
 </html>
