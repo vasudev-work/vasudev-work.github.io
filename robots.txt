@@ -1,0 +1,8 @@
+# The old address. Everything here redirects to the site that replaced it.
+#
+# A crawler that still holds this host should follow the redirect, then read
+# the new host's sitemap for the real list of pages.
+User-agent: *
+Allow: /
+
+Sitemap: https://nijatva.github.io/sitemap.xml

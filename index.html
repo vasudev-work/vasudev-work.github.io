@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nijatva has moved to nijatva.github.io</title>
+<meta name="description" content="This address is an old one. Nijatva now lives at nijatva.github.io.">
+
+<!-- The site moved from this user address to the organisation address. This
+     page exists for one reason: the old address is still in links, bookmarks
+     and search results, and it should hand those visitors to the new site
+     instead of a dead end.
+
+     canonical says which address is the real one. noindex says this page
+     itself should not sit in a search result; follow says the crawler should
+     still walk the links on it. Together they move a visitor and retire a
+     stale listing. -->
+<link rel="canonical" href="https://nijatva.github.io/">
+<meta name="robots" content="noindex, follow">
+<meta http-equiv="refresh" content="0; url=https://nijatva.github.io/">
+<style>
+  :root{--bg:#0b0b0d;--fg:#f4f4f5;--mut:#a1a1aa;--accent:#f59e0b;--line:#2a2a31}
+  @media (prefers-color-scheme:light){:root{--bg:#fbfbfc;--fg:#18181b;--mut:#5f5f6a;--accent:#b45309;--line:#e4e4ea}}
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;
+       background:var(--bg);color:var(--fg);
+       font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif}
+  main{max-width:34rem}
+  .mark{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;
+        background:linear-gradient(140deg,var(--accent),#7a4405);color:#fff;font-weight:800;font-size:20px}
+  h1{font-size:24px;line-height:1.25;letter-spacing:-.4px;margin:20px 0 10px}
+  p{color:var(--mut);margin:0 0 14px}
+  a{color:var(--accent)}
+  .go{display:inline-block;margin-top:8px;background:var(--accent);color:#1a1204;
+      text-decoration:none;font-weight:700;border-radius:999px;padding:12px 22px}
+  .addr{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;
+        background:var(--line);border-radius:8px;padding:2px 7px;color:var(--fg)}
+</style>
+</head>
+<body>
+<main>
+  <div class="mark" aria-hidden="true">N</div>
+  <h1>Nijatva has moved</h1>
+  <p>This address is the old one. The site lives at
+     <span class="addr">nijatva.github.io</span> now, and you should be taken
+     there automatically.</p>
+  <p>If nothing happens, the link below works.</p>
+  <a class="go" href="https://nijatva.github.io/">Go to nijatva.github.io</a>
+</main>
+<script>
+  // meta refresh covers the no-JS case; this covers a browser that ignored it
+  // or a back-navigation that restored the page from cache.
+  try { location.replace('https://nijatva.github.io/' + (location.hash || '')); } catch (e) { }
+</script>
+</body>
+</html>
