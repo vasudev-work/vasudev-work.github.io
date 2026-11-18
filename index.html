@@ -1,107 +1,309 @@
 <!doctype html>
-<html lang="en" data-scheme="dark">
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Nijatva</title>
-<meta name="description" content="Nijatva is a suite of small, single-purpose Android apps built without Google Play Services, accounts, ads or analytics. Made in India.">
-<meta name="theme-color" content="#0c0e1c">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vasudev Dangaya - independent Android developer in India</title>
+<meta name="description" content="Vasudev Dangaya builds small, offline Android apps that do not ask for your data. Maker of Nijatva, a suite of 24 single-purpose apps with no Google Play Services, accounts, ads or analytics.">
+<meta name="theme-color" content="#0c0e1c" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f7f7fb" media="(prefers-color-scheme: light)">
 <link rel="icon" href="https://nijatva.github.io/assets/favicon.svg" type="image/svg+xml">
-
-<!-- This address is the old one. The redirect runs here, in the head, before a
-     single element of this page is laid out - so what a visitor sees is the
-     real site, not a notice about it. The markup below only exists for the
-     case where scripting and meta refresh are both off; it is built to look
-     like the site rather than like an error page. -->
-<script>
-  (function () {
-    var to = 'https://nijatva.github.io/' +
-             location.pathname.replace(/^\/+/, '') + (location.search || '') + (location.hash || '');
-    try { location.replace(to); } catch (e) { }
-    // if we are still here a moment later, the redirect was blocked
-    setTimeout(function () { document.documentElement.setAttribute('data-stuck', '1'); }, 900);
-  })();
-</script>
-<meta http-equiv="refresh" content="0; url=https://nijatva.github.io/">
-<link rel="canonical" href="https://nijatva.github.io/">
-<meta name="robots" content="noindex, follow">
-
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Vasudev Dangaya - independent Android developer">
+<meta property="og:description" content="Small, offline Android apps that do not ask for your data. Maker of Nijatva.">
 <style>
   :root{
-    --bg:#0c0e1c; --panel:#151832; --line:#272c4d; --fg:#eceefb; --mut:#9aa1c4;
-    --accent:#f0b566; --accent-ink:#20160a; --radius:18px;
+    --bg:#0c0e1c; --panel:#141733; --panel2:#1b1f3f; --line:#2a2f55;
+    --fg:#eceefb; --mut:#9aa1c4; --accent:#f0b566; --accent-ink:#20160a;
+    --ok:#8ed6a3; --radius:18px;
   }
   @media (prefers-color-scheme: light){
-    :root{--bg:#f7f7fb; --panel:#fff; --line:#e3e4ef; --fg:#14172b; --mut:#5b6180;
-          --accent:#c9761b; --accent-ink:#fff;}
+    :root{--bg:#f7f7fb; --panel:#ffffff; --panel2:#f0f1f8; --line:#e2e4ef;
+          --fg:#14172b; --mut:#5b6180; --accent:#b45309; --accent-ink:#ffffff; --ok:#2f7a4a;}
   }
   *{box-sizing:border-box}
-  html{background:var(--bg)}
   body{margin:0;background:var(--bg);color:var(--fg);
-       font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif;
+       font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif;
        -webkit-text-size-adjust:100%}
-  .wrap{max-width:56rem;margin:0 auto;padding:0 20px 56px}
-  header{display:flex;align-items:center;gap:10px;padding:18px 0 34px}
-  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg);
-         font-weight:700;font-size:18px;letter-spacing:-.2px}
-  .brand img{width:34px;height:34px;display:block}
-  nav{margin-left:auto;display:flex;gap:18px;font-size:14px;flex-wrap:wrap}
-  nav a{color:var(--mut);text-decoration:none}
-  nav a:hover{color:var(--fg)}
-  .eyebrow{font-size:11.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--accent);
-           font-weight:700;margin:0 0 12px}
-  h1{font-size:clamp(28px,6vw,42px);line-height:1.12;letter-spacing:-1px;margin:0 0 14px;max-width:22ch}
-  .lead{color:var(--mut);font-size:17px;margin:0 0 26px;max-width:46ch}
-  .cta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px}
-  .btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:12px 22px;
-       font-size:15px;font-weight:650;text-decoration:none;border:1px solid transparent}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:62rem;margin:0 auto;padding:0 20px 64px}
+  .skip{position:absolute;left:-9999px}
+  .skip:focus{left:12px;top:12px;background:var(--accent);color:var(--accent-ink);
+              padding:10px 16px;border-radius:999px;z-index:9}
+
+  /* ---------- hero ---------- */
+  .hero{padding:34px 0 10px}
+  .id{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+  .av{width:74px;height:74px;border-radius:22px;flex:none;display:grid;place-items:center;
+      background:linear-gradient(140deg,var(--accent),#8a4b0f);color:#1b1206;
+      font-weight:800;font-size:26px;letter-spacing:.5px}
+  h1{font-size:clamp(26px,5vw,34px);line-height:1.15;letter-spacing:-.8px;margin:0}
+  .handle{color:var(--mut);font-size:14px;margin-top:2px}
+  .tagline{margin:18px 0 0;font-size:clamp(17px,2.6vw,20px);line-height:1.5;max-width:44ch;
+           letter-spacing:-.2px}
+  .where{color:var(--mut);font-size:14px;margin:10px 0 0}
+  .links{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0 0}
+  .btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:11px 20px;
+       font-size:14.5px;font-weight:650;border:1px solid transparent;transition:transform .16s}
+  .btn:active{transform:scale(.97)}
   .btn.primary{background:var(--accent);color:var(--accent-ink)}
-  .btn.ghost{background:transparent;color:var(--fg);border-color:var(--line)}
-  .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
-  .card b{display:block;font-size:14.5px;margin-bottom:4px}
-  .card span{color:var(--mut);font-size:13px;line-height:1.5}
-  .note{margin-top:28px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);
-        background:var(--panel);color:var(--mut);font-size:13px}
-  .note b{color:var(--fg)}
-  .addr{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px}
+  .btn.ghost{border-color:var(--line);color:var(--fg);background:var(--panel)}
+  .btn svg{width:16px;height:16px}
+
+  /* ---------- sections ---------- */
+  h2{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);
+     font-weight:750;margin:44px 0 14px}
+  .lead{color:var(--mut);margin:0 0 18px;max-width:62ch}
+
+  .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(255px,1fr))}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+  .card h3{margin:0 0 6px;font-size:16px;letter-spacing:-.2px}
+  .card p{margin:0;color:var(--mut);font-size:14px;line-height:1.55}
+  .card .meta{margin-top:12px;padding-top:10px;border-top:1px solid var(--line);
+              font-size:12px;color:var(--mut);display:flex;gap:8px;flex-wrap:wrap}
+  .tag{border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:11.5px}
+
+  .star{background:linear-gradient(160deg,var(--panel2),var(--panel));border-color:var(--line)}
+  .star .flag{display:inline-block;font-size:10.5px;font-weight:750;letter-spacing:.8px;
+              text-transform:uppercase;color:var(--ok);border:1px solid var(--line);
+              border-radius:999px;padding:3px 9px;margin-bottom:10px}
+
+  .skills{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+  .skill h3{font-size:14px;margin:0 0 8px;letter-spacing:-.1px}
+  .skill ul{margin:0;padding-left:18px;color:var(--mut);font-size:13.5px;line-height:1.7}
+  .skill li::marker{color:var(--accent)}
+
+  .how{margin:0;padding:0;list-style:none;display:grid;gap:12px}
+  .how li{display:flex;gap:12px;align-items:flex-start;background:var(--panel);
+          border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .how .n{width:24px;height:24px;flex:none;border-radius:50%;display:grid;place-items:center;
+          background:var(--panel2);color:var(--accent);font-size:12.5px;font-weight:750}
+  .how b{display:block;font-size:14.5px;margin-bottom:2px}
+  .how span{color:var(--mut);font-size:13.5px}
+
+  .contact{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .c{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);
+     border-radius:14px;padding:14px 16px;color:var(--fg)}
+  .c:hover{text-decoration:none;border-color:var(--accent)}
+  .c .ic{width:34px;height:34px;border-radius:11px;flex:none;display:grid;place-items:center;
+         background:var(--panel2);color:var(--accent)}
+  .c .ic svg{width:17px;height:17px}
+  .c b{display:block;font-size:14px;font-weight:650}
+  .c span{color:var(--mut);font-size:12.5px;word-break:break-all}
+
+  footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
+         color:var(--mut);font-size:12.5px;display:flex;gap:10px 20px;flex-wrap:wrap;
+         justify-content:space-between}
+  :focus-visible{outline:2.5px solid var(--accent);outline-offset:2px;border-radius:8px}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
-  <header>
-    <a class="brand" href="https://nijatva.github.io/">
-      <img src="https://nijatva.github.io/assets/logo.svg" alt="">
-      <span>Nijatva</span>
-    </a>
-    <nav>
-      <a href="https://nijatva.github.io/apps.html">Apps</a>
-      <a href="https://nijatva.github.io/architecture.html">Architecture</a>
-      <a href="https://nijatva.github.io/developer.html">Developer</a>
-      <a href="https://github.com/nijatva">GitHub</a>
-    </nav>
-  </header>
+<main id="main">
 
-  <p class="eyebrow">This address has moved</p>
-  <h1>Twenty-four small apps that keep everything on your device</h1>
-  <p class="lead">Nijatva is a suite of single-purpose Android apps built without Google Play
-    Services, accounts, ads or analytics. Made in India.</p>
+  <section class="hero">
+    <div class="id">
+      <div class="av" aria-hidden="true">VD</div>
+      <div>
+        <h1>Vasudev Dangaya</h1>
+        <div class="handle">@vasudev-work · India</div>
+      </div>
+    </div>
+    <p class="tagline">I build small Android apps that keep everything on your device —
+      no account, no ads, no tracker, and no Google Play Services.</p>
+    <p class="where">Most of that work ships as <b>Nijatva</b>, a suite of 24 single-purpose
+      apps, and as the tooling and stores around it.</p>
+    <div class="links">
+      <a class="btn primary" href="https://nijatva.github.io/">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg>
+        Nijatva, the suite
+      </a>
+      <a class="btn ghost" href="https://github.com/vasudev-work">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg>
+        GitHub
+      </a>
+      <a class="btn ghost" href="mailto:Vasudev.Social@rediffmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/></svg>
+        Email
+      </a>
+    </div>
+  </section>
 
-  <div class="cta">
-    <a class="btn primary" href="https://nijatva.github.io/">Open nijatva.github.io</a>
-    <a class="btn ghost" href="https://nijatva.github.io/apps.html">See the 24 apps</a>
-  </div>
+  <h2>What I have built</h2>
+  <p class="lead">Sixteen of the twenty-four Nijatva apps have a repository today; the other eight
+    are planned and listed on the suite site. Outside the suite there are two other lines of work: a
+    catalogue of Indian apps, and the small offline tools.</p>
 
   <div class="grid">
-    <div class="card"><b>No Google Play Services</b><span>Built for AOSP without GMS, so it runs on de-Googled Android and on BharOS.</span></div>
-    <div class="card"><b>No accounts</b><span>There is nothing to sign up for. Everything stays in device storage.</span></div>
-    <div class="card"><b>No ads or analytics</b><span>No tracking SDK is linked in. Not disabled, not opt-out. Absent.</span></div>
-    <div class="card"><b>Made in India</b><span>Indian languages and Indian networks as the first target.</span></div>
+    <div class="card star">
+      <span class="flag">Main project</span>
+      <h3>Nijatva Browser</h3>
+      <p>An Android browser on the system WebView, about 9 MB: containers with their own tab
+        sets, network and cosmetic filter rules applied on the device, reader mode, native
+        text-to-speech, and a userscript manager. Desktop builds come from the same source.</p>
+      <div class="meta"><span class="tag">in.nijatva.browser</span><span class="tag">v2.0.3</span><span class="tag">Kotlin</span></div>
+    </div>
+
+    <div class="card">
+      <h3>Nijatva Web Store</h3>
+      <p>A script store for the browser, served as static files. The catalogue is signed with
+        an ECDSA key and every script carries a SHA-256, so a file that changed under you is
+        refused instead of installed.</p>
+      <div class="meta"><span class="tag">GitHub Pages</span><span class="tag">signed catalogue</span></div>
+    </div>
+
+    <div class="card">
+      <h3>Nijatva Music</h3>
+      <p>An offline player from one Compose Multiplatform codebase — Android, Windows, macOS,
+        Linux and the browser. ID3 tags and cover art are parsed on the device, and the web
+        build has a five-band equaliser on Web Audio and installs as a PWA.</p>
+      <div class="meta"><span class="tag">Compose Multiplatform</span><span class="tag">PWA</span></div>
+    </div>
+
+    <div class="card">
+      <h3>Camera and Photos</h3>
+      <p>Camera2 with manual controls, RAW, night stacking, exposure fusion and panorama; and
+        a local-first gallery with on-device AI, albums and a vault. Nothing is uploaded.</p>
+      <div class="meta"><span class="tag">Camera2</span><span class="tag">ML Kit</span></div>
+    </div>
+
+    <div class="card">
+      <h3>Phone roles</h3>
+      <p>Dialer, Contacts, Messages, Files, Notes, Drive, Gallery, Video and Editor — the apps
+        that make a de-Googled phone usable, each one small and offline.</p>
+      <div class="meta"><span class="tag">MediaStore</span><span class="tag">SAF</span><span class="tag">no INTERNET</span></div>
+    </div>
+
+    <div class="card">
+      <h3>Nijatva Translate</h3>
+      <p>Translation for India's 22 scheduled languages against any LibreTranslate-compatible
+        server, so the language data can stay on hardware you control.</p>
+      <div class="meta"><span class="tag">Kotlin</span><span class="tag">22 languages</span></div>
+    </div>
+
+    <div class="card">
+      <h3>Swadeshi</h3>
+      <p>A catalogue of 1,502 Made-in-India Android apps with package ids and official links,
+        published as CSV and JSON, plus an Android appstore app that lists them offline and a
+        medicine page carrying 2,026 Jan Aushadhi generics.</p>
+      <div class="meta"><span class="tag">data</span><span class="tag">Android</span><span class="tag">static web</span></div>
+    </div>
+
+    <div class="card">
+      <h3>Small offline tools</h3>
+      <p>Five apps — calculator, clock, notes, QR and files — around 115 KB each, with no
+        INTERNET permission in the manifest at all. Also a privacy-first music player, two
+        WebView readers with TTS and translation, and a multilingual AI assistant.</p>
+      <div class="meta"><span class="tag">~115 KB each</span><span class="tag">no GMS</span></div>
+    </div>
+
+    <div class="card">
+      <h3>Build guards</h3>
+      <p><code>no-gms-check</code> is a Gradle plugin and a CI action that fails the build the
+        moment a Google Play Services or Firebase artefact appears in the dependency tree —
+        the rule the whole suite is held to, enforced by the compiler.</p>
+      <div class="meta"><span class="tag">Gradle plugin</span><span class="tag">CI</span></div>
+    </div>
   </div>
 
-  <p class="note">You came in on the old address, <span class="addr">vasudev-work.github.io</span>.
-    The site lives at <b>nijatva.github.io</b> now and this page is meant to hand you over
-    automatically. If it did not, the link above goes there.</p>
+  <h2>What I can do</h2>
+  <div class="skills">
+    <div class="skill">
+      <h3>Android</h3>
+      <ul>
+        <li>Kotlin and Java, Jetpack Compose, and plain views where they fit</li>
+        <li>WebView engine work: injection, script bridges, per-site rules</li>
+        <li>Media3 / ExoPlayer, MediaSession, foreground services</li>
+        <li>Camera2, MediaStore, SAF, scoped storage</li>
+        <li>AOSP builds with no Google Play Services, for de-Googled ROMs</li>
+      </ul>
+    </div>
+    <div class="skill">
+      <h3>Across platforms</h3>
+      <ul>
+        <li>Compose Multiplatform for Android, desktop and the web</li>
+        <li>JavaFX desktop builds from the same codebase</li>
+        <li>React Native / Expo where a file vault needs it</li>
+      </ul>
+    </div>
+    <div class="skill">
+      <h3>Web</h3>
+      <ul>
+        <li>Hand-written HTML, CSS and JavaScript — no framework, no build step</li>
+        <li>Progressive web apps: manifest, service worker, offline shell</li>
+        <li>Web Audio, Media Session, and sites generated by Python</li>
+        <li>Design tokens, theming and contrast-checked palettes</li>
+      </ul>
+    </div>
+    <div class="skill">
+      <h3>Tooling and releases</h3>
+      <ul>
+        <li>GitHub Actions matrices that build Android, Windows, macOS and Linux</li>
+        <li>Release engineering: signing, SHA-256 manifests, signed catalogues</li>
+        <li>Python generators for pages, icons, tokens and catalogues</li>
+        <li>A self-hosted, F-Droid style repository for the suite</li>
+      </ul>
+    </div>
+    <div class="skill">
+      <h3>Privacy by construction</h3>
+      <ul>
+        <li>Ad and tracker filtering rules applied on the device</li>
+        <li>Userscript isolation with a controlled GM_ bridge</li>
+        <li>No telemetry SDKs linked in — absent, not disabled</li>
+      </ul>
+    </div>
+    <div class="skill">
+      <h3>On-device intelligence</h3>
+      <ul>
+        <li>ML Kit for photo and text work that stays on the phone</li>
+        <li>Android TTS with rate, pitch and pronunciation control</li>
+        <li>Translation wired to a server you run yourself</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>How I work</h2>
+  <ul class="how">
+    <li><span class="n">1</span><div><b>Offline first, and it stays offline</b>
+      <span>Files are read from the device and written back to it. Where a feature needs the
+      network, the page or app says so and the user chooses.</span></div></li>
+    <li><span class="n">2</span><div><b>Small is a feature</b>
+      <span>A browser of about 9 MB, apps of about 115 KB. The size is the argument, not a
+      side effect.</span></div></li>
+    <li><span class="n">3</span><div><b>Say what it does not do</b>
+      <span>Every project page carries that section. A short honest list beats a long feature
+      list nobody can check.</span></div></li>
+    <li><span class="n">4</span><div><b>Make claims checkable</b>
+      <span>Hashes on scripts, a signed catalogue, figures dated to the day they were read
+      from GitHub. If a number can be verified, it is.</span></div></li>
+    <li><span class="n">5</span><div><b>Built in India, for Indian networks</b>
+      <span>Indian languages and slow connections are the first target, not an afterthought.</span></div></li>
+  </ul>
+
+  <h2>Contact</h2>
+  <div class="contact">
+    <a class="c" href="mailto:Vasudev.Social@rediffmail.com">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/></svg></span>
+      <span><b>Email</b><span>Vasudev.Social@rediffmail.com</span></span>
+    </a>
+    <a class="c" href="https://github.com/vasudev-work">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg></span>
+      <span><b>GitHub</b><span>github.com/vasudev-work</span></span>
+    </a>
+    <a class="c" href="https://nijatva.github.io/">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12h16M13 5l7 7-7 7"/></svg></span>
+      <span><b>Nijatva</b><span>nijatva.github.io</span></span>
+    </a>
+  </div>
+
+  <footer>
+    <span>Vasudev Dangaya · India</span>
+    <span>This page is static HTML, with no fonts, no scripts and no analytics.</span>
+  </footer>
+</main>
 </div>
 </body>
 </html>
